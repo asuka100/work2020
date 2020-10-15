@@ -13,7 +13,7 @@ import com.hotel.pojo.RoomStatus;
 import com.hotel.service.RoomStatusService;
 
 @Controller
-@RequestMapping(value = "/room_status")
+@RequestMapping(value = "/roomStatus")
 public class RoomStatusController {
 	
 	@Autowired
