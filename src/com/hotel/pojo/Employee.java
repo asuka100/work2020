@@ -1,6 +1,7 @@
 package com.hotel.pojo;
 
 public class Employee {
+	//id自增
     private Integer employeeId;
 
     private Integer employeePositionId;
@@ -14,6 +15,8 @@ public class Employee {
     private String phone;
 
     private String cardId;
+
+    private Integer password;
 
     public Integer getEmployeeId() {
         return employeeId;
@@ -69,5 +72,13 @@ public class Employee {
 
     public void setCardId(String cardId) {
         this.cardId = cardId == null ? null : cardId.trim();
+    }
+
+    public Integer getPassword() {
+        return password;
+    }
+
+    public void setPassword(Integer password) {
+        this.password = password;
     }
 }

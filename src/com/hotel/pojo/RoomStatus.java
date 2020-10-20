@@ -4,15 +4,15 @@ public class RoomStatus {
     private Integer roomStatusId;
 
     private String statusName;
-    
-    public RoomStatus() { }
-    
-    public RoomStatus(String statusName) {
-		super();
-		this.statusName = statusName;
-	}
 
-	public Integer getRoomStatusId() {
+    public RoomStatus() { }
+    //id自增
+    public RoomStatus(String statusName) {
+    	super();
+    	this.setStatusName(statusName);
+    }
+    
+    public Integer getRoomStatusId() {
         return roomStatusId;
     }
 

@@ -1,6 +1,7 @@
 package com.hotel.pojo;
 
 public class EmployeePosition {
+	//id自增
     private Integer employeePositionId;
 
     private String positionName;

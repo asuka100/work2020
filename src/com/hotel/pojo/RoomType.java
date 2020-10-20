@@ -5,6 +5,13 @@ public class RoomType {
 
     private String typeName;
 
+    public RoomType() { }
+  //id自增
+    public RoomType(String typeRoom) {
+    	super();
+    	this.setTypeName(typeRoom);
+    }
+    
     public Integer getRoomTypeId() {
         return roomTypeId;
     }
