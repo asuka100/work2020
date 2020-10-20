@@ -1,5 +1,6 @@
 package com.hotel.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -27,7 +28,19 @@ public class ClientController {
 	 */
 	@RequestMapping(value = "/create")
 	public String create(Client client) {
-		if(client==null||client.getCardId()!=null) {
+		String clientId = null;
+		int count = 0;
+
+		do {
+			clientId = new SimpleDateFormat("yyyyMMdd").format(new Date()) + System.currentTimeMillis()%1000;
+			//TODO:逻辑不合理，无法进行准确计数，因为获取的是毫秒级的时间，代码重复执行的间隔不知道
+			count++;
+			if(count>1000) {
+				break;
+			}
+		}while(service.selectById(Integer.parseInt(clientId))!=null);
+		
+		if(client==null||clientId==null||count>1000||client.getCardId()!=null) {
 			return 0+"";
 		}
 		
