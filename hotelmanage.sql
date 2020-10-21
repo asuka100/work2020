@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50648
 File Encoding         : 65001
 
-Date: 2020-10-14 10:45:31
+Date: 2020-10-21 08:48:56
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -29,21 +29,30 @@ CREATE TABLE `client` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of client
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for employee
 -- ----------------------------
 DROP TABLE IF EXISTS `employee`;
 CREATE TABLE `employee` (
-  `employee_id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL AUTO_INCREMENT,
   `employee_position_id` int(11) NOT NULL,
   `name` varchar(50) DEFAULT NULL,
   `sex` varchar(5) DEFAULT NULL,
   `age` varchar(5) DEFAULT NULL,
   `phone` varchar(11) DEFAULT NULL,
   `card_id` varchar(18) NOT NULL,
+  `password` int(11) NOT NULL,
   PRIMARY KEY (`employee_id`),
-  KEY `employee_postion` (`employee_position_id`),
-  CONSTRAINT `employee_postion` FOREIGN KEY (`employee_position_id`) REFERENCES `employee_position` (`employee_position_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `employee_postion` (`employee_position_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of employee
+-- ----------------------------
+INSERT INTO `employee` VALUES ('1', '1', null, null, null, null, '440', '123456');
 
 -- ----------------------------
 -- Table structure for employee_position
@@ -53,7 +62,12 @@ CREATE TABLE `employee_position` (
   `employee_position_id` int(11) NOT NULL AUTO_INCREMENT,
   `position_name` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`employee_position_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of employee_position
+-- ----------------------------
+INSERT INTO `employee_position` VALUES ('1', 'admin');
 
 -- ----------------------------
 -- Table structure for maintain_list
@@ -68,6 +82,10 @@ CREATE TABLE `maintain_list` (
   KEY `maintain_room_fk` (`room_id`),
   CONSTRAINT `maintain_room_fk` FOREIGN KEY (`room_id`) REFERENCES `room` (`room_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of maintain_list
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for order
@@ -86,12 +104,12 @@ CREATE TABLE `order` (
   KEY `order_client_fk` (`client_id`),
   KEY `order_create_fk` (`create_employee_id`),
   KEY `order_check_fk` (`check_employee_id`),
-  KEY `order_pay_fk` (`pay_employee_id`),
-  CONSTRAINT `order_check_fk` FOREIGN KEY (`check_employee_id`) REFERENCES `employee` (`employee_id`),
-  CONSTRAINT `order_client_fk` FOREIGN KEY (`client_id`) REFERENCES `client` (`client_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `order_create_fk` FOREIGN KEY (`create_employee_id`) REFERENCES `employee` (`employee_id`),
-  CONSTRAINT `order_pay_fk` FOREIGN KEY (`pay_employee_id`) REFERENCES `employee` (`employee_id`)
+  KEY `order_pay_fk` (`pay_employee_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of order
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for order_detail
@@ -106,6 +124,10 @@ CREATE TABLE `order_detail` (
   CONSTRAINT `order_detail_order_fk` FOREIGN KEY (`order_id`) REFERENCES `order` (`order_id`),
   CONSTRAINT `order_detail_room_fk` FOREIGN KEY (`room_id`) REFERENCES `room` (`room_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of order_detail
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for room
@@ -123,6 +145,10 @@ CREATE TABLE `room` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of room
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for room_status
 -- ----------------------------
 DROP TABLE IF EXISTS `room_status`;
@@ -130,7 +156,14 @@ CREATE TABLE `room_status` (
   `room_status_id` int(11) NOT NULL AUTO_INCREMENT,
   `status_name` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`room_status_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of room_status
+-- ----------------------------
+INSERT INTO `room_status` VALUES ('1', 'df');
+INSERT INTO `room_status` VALUES ('2', 'df');
+INSERT INTO `room_status` VALUES ('3', 'fds');
 
 -- ----------------------------
 -- Table structure for room_type
@@ -141,3 +174,7 @@ CREATE TABLE `room_type` (
   `type_name` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`room_type_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of room_type
+-- ----------------------------

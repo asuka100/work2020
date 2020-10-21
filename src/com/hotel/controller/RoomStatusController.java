@@ -36,9 +36,10 @@ public class RoomStatusController {
 	 * @param status_id
 	 * @return
 	 */
-	public String deleteById(int status_id) {
-		
-		return "";
+	@RequestMapping(value = "/delete/id")
+	@ResponseBody
+	public int deleteById(int status_id) {
+		return  service.deleteById(status_id);
 	}
 	
 	/**
@@ -72,9 +73,10 @@ public class RoomStatusController {
 	 * @return 0:修改失败，1:修改成功
 	 */
 	@RequestMapping(value = "/update")
-	public String update(RoomStatus roomStatus) {
+	@ResponseBody
+	public int update(RoomStatus roomStatus) {
 		int result = service.updateNameById(roomStatus);
-		return result+"";
+		return result;
 	}
 	
 
