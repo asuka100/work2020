@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50648
 File Encoding         : 65001
 
-Date: 2020-10-21 08:48:56
+Date: 2020-10-23 11:26:56
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -47,12 +47,15 @@ CREATE TABLE `employee` (
   `password` int(11) NOT NULL,
   PRIMARY KEY (`employee_id`),
   KEY `employee_postion` (`employee_position_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of employee
 -- ----------------------------
 INSERT INTO `employee` VALUES ('1', '1', null, null, null, null, '440', '123456');
+INSERT INTO `employee` VALUES ('2', '2', null, null, null, null, '555', '123456');
+INSERT INTO `employee` VALUES ('3', '3', null, null, null, null, '66', '333333');
+INSERT INTO `employee` VALUES ('4', '4', null, null, null, null, '44', '444444');
 
 -- ----------------------------
 -- Table structure for employee_position
@@ -62,12 +65,15 @@ CREATE TABLE `employee_position` (
   `employee_position_id` int(11) NOT NULL AUTO_INCREMENT,
   `position_name` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`employee_position_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of employee_position
 -- ----------------------------
-INSERT INTO `employee_position` VALUES ('1', 'admin');
+INSERT INTO `employee_position` VALUES ('1', '经理');
+INSERT INTO `employee_position` VALUES ('2', '前台人员');
+INSERT INTO `employee_position` VALUES ('3', '维修人员');
+INSERT INTO `employee_position` VALUES ('4', '保洁人员');
 
 -- ----------------------------
 -- Table structure for maintain_list
@@ -86,6 +92,54 @@ CREATE TABLE `maintain_list` (
 -- ----------------------------
 -- Records of maintain_list
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for menuitem
+-- ----------------------------
+DROP TABLE IF EXISTS `menuitem`;
+CREATE TABLE `menuitem` (
+  `id` int(11) NOT NULL,
+  `position_id` int(11) DEFAULT NULL,
+  `menuitem` varchar(64) DEFAULT NULL,
+  `parent` varchar(255) DEFAULT NULL,
+  `urlLink` varchar(255) DEFAULT NULL,
+  `success` varchar(255) DEFAULT NULL,
+  `descript` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of menuitem
+-- ----------------------------
+INSERT INTO `menuitem` VALUES ('1', '1', '新增房间', '房间管理', null, null, null);
+INSERT INTO `menuitem` VALUES ('2', '1', '房间列表', '房间管理', null, null, null);
+INSERT INTO `menuitem` VALUES ('3', '1', '新增房间类型', '房间管理', null, null, null);
+INSERT INTO `menuitem` VALUES ('4', '1', '房间类型列表', '房间管理', null, null, null);
+INSERT INTO `menuitem` VALUES ('5', '1', '新增员工', '员工管理', null, null, null);
+INSERT INTO `menuitem` VALUES ('6', '1', '员工列表', '员工管理', null, null, null);
+INSERT INTO `menuitem` VALUES ('7', '1', '新增客户', '客户管理', null, null, null);
+INSERT INTO `menuitem` VALUES ('8', '1', '客户列表', '客户管理', null, null, null);
+INSERT INTO `menuitem` VALUES ('9', '1', '房态修改', '房态管理', null, null, null);
+INSERT INTO `menuitem` VALUES ('10', '1', '房态查询', '房态管理', null, null, null);
+INSERT INTO `menuitem` VALUES ('11', '1', '新增维修项目', '维修管理', null, null, null);
+INSERT INTO `menuitem` VALUES ('12', '1', '房间维修查询', '维修管理', null, null, null);
+INSERT INTO `menuitem` VALUES ('13', '1', '房间列表', '维修管理', null, null, null);
+INSERT INTO `menuitem` VALUES ('14', '1', '预定房间', '订单管理', null, null, null);
+INSERT INTO `menuitem` VALUES ('15', '1', '入住', '订单管理', null, null, null);
+INSERT INTO `menuitem` VALUES ('16', '1', '退房结账', '订单管理', null, null, null);
+INSERT INTO `menuitem` VALUES ('17', '1', '订单查询', '订单管理', null, null, null);
+INSERT INTO `menuitem` VALUES ('18', '1', '财务报表', '订单管理', null, null, null);
+INSERT INTO `menuitem` VALUES ('19', '2', '房间列表', '房间管理', null, null, null);
+INSERT INTO `menuitem` VALUES ('20', '2', '新增客户', '客户管理', null, null, null);
+INSERT INTO `menuitem` VALUES ('21', '2', '客户列表', '客户管理', null, null, null);
+INSERT INTO `menuitem` VALUES ('22', '2', '新增维修项目', '维修管理', null, null, null);
+INSERT INTO `menuitem` VALUES ('23', '2', '房间维修查询', '维修管理', null, null, null);
+INSERT INTO `menuitem` VALUES ('24', '2', '预定房间', '订单管理', null, null, null);
+INSERT INTO `menuitem` VALUES ('25', '2', '入住', '订单管理', null, null, null);
+INSERT INTO `menuitem` VALUES ('26', '2', '退房结账', '订单管理', null, null, null);
+INSERT INTO `menuitem` VALUES ('27', '2', '订单查询', '订单管理', null, null, null);
+INSERT INTO `menuitem` VALUES ('28', '3', '房间维修查询', '维修管理', null, null, null);
+INSERT INTO `menuitem` VALUES ('29', '4', '房间维修查询', '维修管理', null, null, null);
 
 -- ----------------------------
 -- Table structure for order
@@ -127,6 +181,21 @@ CREATE TABLE `order_detail` (
 
 -- ----------------------------
 -- Records of order_detail
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for position_menuitem
+-- ----------------------------
+DROP TABLE IF EXISTS `position_menuitem`;
+CREATE TABLE `position_menuitem` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `position_id` int(11) DEFAULT NULL,
+  `menuitem_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of position_menuitem
 -- ----------------------------
 
 -- ----------------------------
