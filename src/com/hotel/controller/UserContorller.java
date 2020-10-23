@@ -40,7 +40,9 @@ public class UserContorller {
 		
 		for(String menu : parent) {
 			List<Menuitem> temp_list = menuitemService.selectByPositionIdAndParent(positionId, menu);
-			
+			for (Menuitem menuitem : temp_list) {
+				System.out.println(menuitem+"-------------");
+			}
 			if(temp_list.size()!=0) {
 				result.put(menu,temp_list);//一级菜单名称为key，二级菜单列表为value
 			}

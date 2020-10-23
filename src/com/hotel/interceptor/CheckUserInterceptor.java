@@ -14,7 +14,7 @@ public boolean preHandle(HttpServletRequest request, HttpServletResponse respons
 	System.out.println("CheckUserInterceptor 拦截器");
 	
 	HttpSession session = request.getSession();
-	if(session.getAttribute("user")!=null) {
+	if(session.getAttribute("employee")!=null) {
 		//已登录
 		return true;
 	}
