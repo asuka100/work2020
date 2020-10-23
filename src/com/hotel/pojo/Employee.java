@@ -81,4 +81,13 @@ public class Employee {
     public void setPassword(Integer password) {
         this.password = password;
     }
+
+	@Override
+	public String toString() {
+		return "Employee [employeeId=" + employeeId + ", employeePositionId=" + employeePositionId + ", name=" + name
+				+ ", sex=" + sex + ", age=" + age + ", phone=" + phone + ", cardId=" + cardId + ", password=" + password
+				+ "]";
+	}
+    
+    
 }

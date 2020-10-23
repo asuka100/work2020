@@ -22,9 +22,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public int insert(Employee employee) {
-		if(employee==null||employee.getEmployeeId()==null) {
-			return 0;
-		}
+		
 		return mapper.insertSelective(employee);
 		
 	}

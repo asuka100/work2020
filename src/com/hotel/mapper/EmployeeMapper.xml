@@ -109,6 +109,9 @@
     values (#{employeeId,jdbcType=INTEGER}, #{employeePositionId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
       #{sex,jdbcType=VARCHAR}, #{age,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{cardId,jdbcType=VARCHAR}, 
       #{password,jdbcType=INTEGER})
+       <selectKey keyProperty="employeeId" resultType="int" order="AFTER">
+      	select last_insert_id()
+      </selectKey>
   </insert>
   <insert id="insertSelective" parameterType="com.hotel.pojo.Employee" >
     insert into employee
