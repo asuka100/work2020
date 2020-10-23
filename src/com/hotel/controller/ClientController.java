@@ -28,13 +28,12 @@ public class ClientController {
 	 */
 	@RequestMapping(value = "/create")
 	@ResponseBody
-	public int create(Client client) {
+	public int createClient(Client client) {
 		String clientId = null;
 		int count = 0;
 		int result = 0;
-		String json = null;
 		do {
-			clientId = new SimpleDateFormat("yyyyMMdd").format(new Date()) + System.currentTimeMillis()%1000;
+			clientId = new SimpleDateFormat("yyyyMM").format(new Date()) + System.currentTimeMillis()%100000;
 			//TODO:逻辑不合理，无法进行准确计数，因为获取的是毫秒级的时间，代码重复执行的间隔不知道
 			count++;
 			if(count>1000) {
@@ -82,13 +81,13 @@ public class ClientController {
 	 */
 	@RequestMapping(value = "/update/id")
 	@ResponseBody
-	public String updateById(Client client) {
+	public int updateById(Client client) {
 		if(client==null) {
-			return 0+"";
+			return 0;
 		}
 		int result = service.updateById(client);
 		
-		return result+"";
+		return result;
 	}
 	
 	/**
@@ -98,12 +97,12 @@ public class ClientController {
 	 */
 	@RequestMapping(value = "/update/cardId")
 	@ResponseBody
-	public String updateByCardId(Client client) {
+	public int updateByCardId(Client client) {
 		if(client==null) {
-			return 0+"";
+			return 0;
 		}
 		int result = service.updateByCardId(client);
-		return result+"";
+		return result;
 	}
 	
 	/**
@@ -113,9 +112,9 @@ public class ClientController {
 	 */
 	@RequestMapping(value = "/delete/cardId")
 	@ResponseBody
-	public String deleteByCardId(String cardId) {
+	public int deleteByCardId(String cardId) {
 		int result = service.deleteByCardId(cardId);
-		return result+"";
+		return result;
 	}
 	
 	/**
@@ -125,9 +124,9 @@ public class ClientController {
 	 */
 	@RequestMapping(value = "/delete/{clientId}")
 	@ResponseBody
-	public String deleteById(@PathVariable int clientId) {
+	public int deleteById(@PathVariable int clientId) {
 		int result = service.deleteById(clientId);
-		return result+"";
+		return result;
 	}
 	
 }
