@@ -6,10 +6,8 @@ public class User {
 	
 	private String password;
 	
-	private String position;
+	private String positionId;
 	
-	private int[] menu;
-
 	public String getName() {
 		return name;
 	}
@@ -26,20 +24,12 @@ public class User {
 		this.password = password;
 	}
 
-	public String getPosition() {
-		return position;
+	public String getPositionId() {
+		return positionId;
 	}
 
-	public void setPosition(String position) {
-		this.position = position;
+	public void setPositionId(String positionId) {
+		this.positionId = positionId;
 	}
 
-	public int[] getMenu() {
-		return menu;
-	}
-
-	public void setMenu(int[] menu) {
-		this.menu = menu;
-	}
-	
 }

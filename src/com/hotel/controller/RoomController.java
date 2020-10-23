@@ -18,14 +18,28 @@ public class RoomController {
 		return "";
 	}
 	
+	/**
+	 * 房间列表
+	 * @return
+	 */
 	public String selectAll() {
 		return "";
 	}
 	
+	/**
+	 * 根据房间编号查询房间
+	 * @return
+	 */
 	public String selectById() {
 		return "";
 	}
 	
-	public String
+	/**
+	 * 根据房间编号删除房间
+	 * @return
+	 */
+	public String deleteById() {
+		return "";
+	}
 	
 }
