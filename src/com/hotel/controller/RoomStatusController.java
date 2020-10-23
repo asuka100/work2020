@@ -75,6 +75,9 @@ public class RoomStatusController {
 	@RequestMapping(value = "/update")
 	@ResponseBody
 	public int update(RoomStatus roomStatus) {
+		if(roomStatus.getRoomStatusId()==null) {
+			return 0;
+		}
 		int result = service.updateNameById(roomStatus);
 		return result;
 	}

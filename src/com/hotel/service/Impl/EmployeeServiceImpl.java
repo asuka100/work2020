@@ -1,5 +1,7 @@
 package com.hotel.service.Impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}
 		return mapper.insertSelective(employee);
 		
+	}
+
+	@Override
+	public List<Employee> selectAll() {
+		return mapper.selectByExample(null);
+	}
+
+	@Override
+	public int updateEmployee(Employee employee) {
+		return mapper.updateByPrimaryKeySelective(employee);
 	}
 
 }
