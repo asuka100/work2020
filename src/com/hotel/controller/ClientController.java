@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.hotel.pojo.Client;
 import com.hotel.service.ClientService;
 
@@ -30,29 +34,23 @@ public class ClientController {
 	/**
 	 * 新建客户信息
 	 * @param client
-	 * @return0:新建失败 1:新建成功
+	 * @return null:新建失败  Client:新建成功
 	 */
 	@RequestMapping(value = "/create")
 	@ResponseBody
-	public int createClient(Client client) {
-		String clientId = null;
-		int count = 0;
-		int result = 0;
-		do {
-			clientId = new SimpleDateFormat("yyyyMM").format(new Date()) + System.currentTimeMillis()%100000;
-			//TODO:逻辑不合理，无法进行准确计数，因为获取的是毫秒级的时间，代码重复执行的间隔不知道
-			count++;
-			if(count>1000) {
-				break;
-			}
-		}while(service.selectById(Integer.parseInt(clientId))!=null);
-		
-		if(client==null||clientId==null||count>1000||client.getCardId()!=null) {
-			return result;
+	public Client createClient(Client client) {
+		if(client==null||client.getCardId()==null) {
+			return null;
+		}
+		List<Client> temp = service.selectByCardId(client.getCardId());
+		if(temp.size()!=0) {
+			//身份号已存在
+			return null;
 		}
 		
-		result = service.insert(client);
-		return result;
+		int result = service.insert(client);
+		temp = service.selectByCardId(client.getCardId());
+		return temp.get(0);
 	}
 	
 	/**
@@ -74,10 +72,25 @@ public class ClientController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/select/all")
-	public String selectAll() {
+	public Object selectAll(int page, int limit) {
+		PageHelper.startPage(page,limit);
 		List<Client> list = service.selectAll();
-		String json = JSON.toJSONString(list);
-		return json;
+		PageInfo info = new PageInfo<>(list);
+		long total = info.getTotal();
+		JSONArray jsonArray = new JSONArray();
+		if(list!=null) {
+			jsonArray = new JSONArray();
+			for(Client c : list) {
+				jsonArray.add(c);
+			}
+		}
+		JSONObject jsObj = new JSONObject();
+		jsObj.put("code", "0");
+		jsObj.put("msg","");
+		jsObj.put("count",total);
+		jsObj.put("data",jsonArray);
+		
+		return jsObj;
 	}
 	
 	/**

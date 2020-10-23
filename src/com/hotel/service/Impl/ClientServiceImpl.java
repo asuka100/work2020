@@ -21,7 +21,7 @@ public class ClientServiceImpl implements ClientService {
 	
 	@Override
 	public int insert(Client client) {
-		if(client==null) {
+		if(client==null||client.getClientId()!=null) {
 			return 0;
 		}
 		return mapper.insertSelective(client);
