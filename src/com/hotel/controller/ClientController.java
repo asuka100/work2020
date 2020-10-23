@@ -21,6 +21,12 @@ public class ClientController {
 	@Autowired
 	private ClientService service;
 	
+	
+	@RequestMapping(value = "/viewAddClient")
+	public String viewAddClient() {
+		return "/WEB-INF/jsp/client/addClient";
+	}
+	
 	/**
 	 * 新建客户信息
 	 * @param client

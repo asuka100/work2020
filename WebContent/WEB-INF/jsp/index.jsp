@@ -71,7 +71,7 @@
                                
                                     <dd>
                                         <a href="#" onclick="gotoPage('${item.urllink}');">
-                                                ${item.menuitem}${item.urllink}
+                                                ${item.menuitem}
                                         </a>
                                     </dd>
                               

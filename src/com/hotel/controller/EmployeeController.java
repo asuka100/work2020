@@ -11,10 +11,16 @@ import com.hotel.pojo.Employee;
 import com.hotel.service.EmployeeService;
 
 @Controller
+@RequestMapping(value = "/employee")
 public class EmployeeController {
 
 	@Autowired
 	private EmployeeService service;
+	
+	@RequestMapping(value = "/viewAddEmployee")
+	public String viewAddEmployee() {
+		return "/WEB-INF/jsp/employee/addEmployee";
+	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/create")
