@@ -24,7 +24,7 @@ public class RoomController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/create")
-	public int create(Room room) {
+	public int createRoom(Room room) {
 		if(room==null||room.getRoomId()==null||room.getRoomStatusId()==null||room.getRoomTypeId()==null) {
 			return 0;
 		}
