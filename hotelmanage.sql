@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50648
 File Encoding         : 65001
 
-Date: 2020-10-23 11:26:56
+Date: 2020-10-23 11:48:11
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -47,7 +47,7 @@ CREATE TABLE `employee` (
   `password` int(11) NOT NULL,
   PRIMARY KEY (`employee_id`),
   KEY `employee_postion` (`employee_position_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of employee
@@ -56,6 +56,7 @@ INSERT INTO `employee` VALUES ('1', '1', null, null, null, null, '440', '123456'
 INSERT INTO `employee` VALUES ('2', '2', null, null, null, null, '555', '123456');
 INSERT INTO `employee` VALUES ('3', '3', null, null, null, null, '66', '333333');
 INSERT INTO `employee` VALUES ('4', '4', null, null, null, null, '44', '444444');
+INSERT INTO `employee` VALUES ('5', '2', null, null, null, null, '222', '222222');
 
 -- ----------------------------
 -- Table structure for employee_position
