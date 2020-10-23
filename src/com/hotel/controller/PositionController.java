@@ -35,19 +35,21 @@ public class PositionController {
 	}
 	
 	@RequestMapping(value = "/update")
-	public String updateById(EmployeePosition position) {
+	@ResponseBody
+	public int updateById(EmployeePosition position) {
 		//参数不为空，并且数据库中未有要修改的职位名称
 		if(position==null|| service.selectByName(position.getPositionName()).size()!=0) {
-			return "0";
+			return 0;
 		}
 		
 		int result = service.updateById(position);
-		return result+"";
+		return result;
 	}
 	
 	@RequestMapping(value = "/delete/id")
-	public String deleteById(int id) {
+	@ResponseBody
+	public int deleteById(int id) {
 		int result = service.deleteById(id);
-		return result+"";
+		return result;
 	}
 }

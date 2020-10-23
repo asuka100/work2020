@@ -19,16 +19,18 @@ public class RoomTypeController {
 	@Autowired
 	private RoomTypeService service;
 	
+	@ResponseBody
 	@RequestMapping(value = "/create")
-	public String create(String typeName) {
+	public int createRoomType(String typeName) {
 		int result = service.insertRoomType(typeName);
-		return result+"";
+		return result;
 	}
 	
+	@ResponseBody
 	@RequestMapping(value = "/delete/{id}")
-	public String deleteById(@PathVariable int id) {
+	public int deleteById(@PathVariable int id) {
 		int result = service.deleteById(id);
-		return result+"";
+		return result;
 	}
 	
 	@RequestMapping(value = "/list")
@@ -46,10 +48,11 @@ public class RoomTypeController {
 		return JSON.toJSONString(roomType);
 	}
 	
+	@ResponseBody
 	@RequestMapping(value = "/update")
-	public String update(RoomType roomType) {
+	public int update(RoomType roomType) {
 		int result = service.update(roomType);
-		return result+"";
+		return result;
 	}
 	
 }
