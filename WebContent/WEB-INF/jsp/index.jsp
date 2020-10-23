@@ -60,28 +60,28 @@
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-<!-- 
-                <c:forEach items="${applicationScope[ MENU_KEY ]}" var="entry">
+
+                <c:forEach items="${menu}" var="entry">
 
                     <li class="layui-nav-item layui-nav-itemed">
-                        <a class="" href="javascript:;">${ entry.value.menuName }</a>
+                        <a class="" href="javascript:;">${ entry.key }</a>
                         <dl class="layui-nav-child">
-
-                            <c:forEach items="${entry.value.menuItems}" var="item">
-                                <c:if test="${item.visible==1}">
+ 
+                            <c:forEach items="${entry.value}" var="item">
+                               
                                     <dd>
-                                        <a href="#" onclick="gotoPage('${item.urlLink}');">
-                                                ${item.itemName}
+                                        <a href="#" onclick="gotoPage('${item.urllink}');">
+                                                ${item.menuitem}
                                         </a>
                                     </dd>
-                                </c:if>
+                              
                             </c:forEach>
 
                         </dl>
                     </li>
 
                 </c:forEach>
- -->
+
             </ul>
         </div>
     </div>
