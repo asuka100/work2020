@@ -7,6 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.hotel.pojo.Employee;
 import com.hotel.service.EmployeeService;
 
@@ -22,6 +25,11 @@ public class EmployeeController {
 		return "/WEB-INF/jsp/employee/addEmployee";
 	}
 	
+	@RequestMapping(value = "/viewEmployeeList")
+	public String viewEmployeeList() {
+		return "/WEB-INF/jsp/employee/employeeList";
+	}
+	
 	@ResponseBody
 	@RequestMapping(value = "/create")
 	public int createEmployee(Employee employee) {
@@ -30,8 +38,20 @@ public class EmployeeController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/select/all")
-	public List<Employee> selectAll(){
-		return service.selectAll();
+	public List<Employee> selectAll(int page, int limit){
+		
+		PageHelper.startPage(page, limit);
+		
+		List<Employee> list = service.selectAll();
+		
+	
+	
+		
+	
+		
+		return list;
+		
+		
 	}
 	
 	@ResponseBody

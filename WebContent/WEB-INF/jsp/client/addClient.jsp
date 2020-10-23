@@ -76,7 +76,7 @@
                     console.log(resp);
                     var result = resp['result'];
                     console.log(result);
-/*
+
             		if(result=='success'){
                         layer.msg("添加："+resp['name']+'成功');
                         setTimeout(reloadPage,1500);
@@ -84,7 +84,7 @@
                         layer.msg("添加："+resp['name']+'失败');
 
                     }
-                    */
+                   
                 }
             });
             layer.msg(JSON.stringify(data.field));

@@ -85,7 +85,7 @@
             table.render({
                 elem: '#demo'
                 ,height: 530
-                ,url: '${ctxPath}/User/jsonUserList?ran='+ ran //数据接口
+                ,url: '${ctxPath}/client/select/all?ran='+ ran //数据接口
                 ,title: '用户表'
                 ,page: true     //{ps} 开启分页
                 ,toolbar: 'default' //{ps} 开启工具栏，此处显示默认图标，可以自定义模板，详见文档
@@ -93,13 +93,12 @@
                 ,cols: [[       //{ps} 表头
                     {type: 'checkbox', fixed: 'left'},
 
-                    {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'},
-                    {field: 'account', title: '用户名', width:120},
-                    {field: 'nickName', title: '昵称', width:80},
-                    {field: 'no', title: '工号', width:100},
+                    {field: 'clientId', title: 'ID', width:80, sort: true, fixed: 'left'},
+                    {field: 'name', title: '姓名', width:120},
                     {field: 'sex', title: '性别', width:80},
-                    {field: 'roleName', title: '角色名称', width:135},
-                    {field: 'createDate', title: '创建日期', width:120},
+                    {field: 'phone', title: '电话号码', width:100},
+                    {field: 'cardId', title: '身份证号', width:80},
+                 
 
                     {fixed: 'right', width: 185, align:'center', toolbar: '#barDemo'}
                 ]]

@@ -171,11 +171,11 @@
 			<version>3.27.0-GA</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/net.sf.jsqlparser/jsqlparser -->
+
 		<dependency>
-			<groupId>net.sf.jsqlparser</groupId>
-			<artifactId>jsqlparser</artifactId>
-			<version>0.8.0</version>
+  		  <groupId>com.github.jsqlparser</groupId>
+  		  <artifactId>jsqlparser</artifactId>
+  		  <version>0.9.5</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/junit/junit -->
@@ -259,7 +259,7 @@
 		<dependency>
 			<groupId>com.github.pagehelper</groupId>
 			<artifactId>pagehelper</artifactId>
-			<version>5.2.0</version>
+			<version>4.2.1</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
