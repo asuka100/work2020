@@ -74,10 +74,8 @@
                 success: function(resp){
                     //
                     console.log(resp);
-                    var result = resp['result'];
-                    console.log(result);
-
-            		if(result=='success'){
+                  
+            		if(resp != null){
                         layer.msg("添加："+resp['name']+'成功');
                         setTimeout(reloadPage,1500);
                     }else{
