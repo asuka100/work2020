@@ -31,6 +31,11 @@ public class ClientController {
 		return "/WEB-INF/jsp/client/addClient";
 	}
 	
+	@RequestMapping(value = "/viewClientList")
+	public String viewClientList() {
+		return "/WEB-INF/jsp/client/clientList";
+	}
+	
 	/**
 	 * 新建客户信息
 	 * @param client
@@ -60,10 +65,17 @@ public class ClientController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/select/{id}")
-	public String selectById(@PathVariable int id) {
+	public Object selectById(@PathVariable int id) {
 		Client client = service.selectById(id);
-		String json = JSON.toJSONString(client);
-		return json;
+		JSONObject jsObj = new JSONObject();
+		if(client!=null) {
+			jsObj.put("result", "success");
+			jsObj.put("client",client);
+		}else {
+			jsObj.put("result", "");
+		}
+		
+		return jsObj;
 	}
 	
 	/**
@@ -77,18 +89,12 @@ public class ClientController {
 		List<Client> list = service.selectAll();
 		PageInfo info = new PageInfo<>(list);
 		long total = info.getTotal();
-		JSONArray jsonArray = new JSONArray();
-		if(list!=null) {
-			jsonArray = new JSONArray();
-			for(Client c : list) {
-				jsonArray.add(c);
-			}
-		}
+	
 		JSONObject jsObj = new JSONObject();
 		jsObj.put("code", "0");
 		jsObj.put("msg","");
 		jsObj.put("count",total);
-		jsObj.put("data",jsonArray);
+		jsObj.put("data",list);
 		
 		return jsObj;
 	}
@@ -98,7 +104,7 @@ public class ClientController {
 	 * @param client
 	 * @return 0:修改失败 1:修改成功
 	 */
-	@RequestMapping(value = "/update/id")
+	@RequestMapping(value = "/update")
 	@ResponseBody
 	public int updateById(Client client) {
 		if(client==null) {
@@ -129,7 +135,7 @@ public class ClientController {
 	 * @param cardId
 	 * @return 0:删除失败 1:删除成功
 	 */
-	@RequestMapping(value = "/delete/cardId")
+	@RequestMapping(value = "/delete")
 	@ResponseBody
 	public int deleteByCardId(String cardId) {
 		int result = service.deleteByCardId(cardId);

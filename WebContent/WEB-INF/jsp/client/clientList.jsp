@@ -65,13 +65,9 @@
                 ,element = layui.element //元素操作
                 ,slider = layui.slider //滑块
 
-            //{ps} ?addUser=1
-            var addUser = "${param['addUser']}";
-            if( addUser=='1' ){
-                layer.msg('添加客户成功...');
-            }else{
-                layer.msg('正在展示客户列表...');
-            }
+
+            layer.msg('正在展示客户列表...');
+            
 
             //{ps} 监听Tab切换
             element.on('tab(demo)', function(data){
@@ -86,58 +82,25 @@
                 elem: '#demo'
                 ,height: 530
                 ,url: '${ctxPath}/client/select/all?ran='+ ran //数据接口
-                ,title: '用户表'
+                ,title: '客户表'
                 ,page: true     //{ps} 开启分页
-                ,toolbar: 'default' //{ps} 开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+               
                 ,totalRow: false //{ps} 开启合计行
                 ,cols: [[       //{ps} 表头
-                    {type: 'checkbox', fixed: 'left'},
+                  
 
-                    {field: 'clientId', title: 'ID', width:80, sort: true, fixed: 'left'},
-                    {field: 'name', title: '姓名', width:120},
-                    {field: 'sex', title: '性别', width:80},
-                    {field: 'phone', title: '电话号码', width:100},
-                    {field: 'cardId', title: '身份证号', width:80},
+                    {field: 'clientId', title: 'ID', width:80, sort: true, align:'center', fixed: 'left'},
+                    {field: 'name', title: '姓名', sort: true, align:'center', width:120},
+                    {field: 'sex', title: '性别', sort: true, align:'center', width:80},
+                    {field: 'phone', title: '电话号码', sort: true, align:'center', width:150},
+                    {field: 'cardId', title: '身份证号', sort: true, align:'center', width:200},
                  
 
-                    {fixed: 'right', width: 185, align:'center', toolbar: '#barDemo'}
+                    {fixed: 'right', title: '操作', width: 185, align:'center', toolbar: '#barDemo'}
                 ]]
             });
 
-            //{ps} 监听头工具栏事件
-            table.on('toolbar(test)', function(obj){
-                var checkStatus = table.checkStatus(obj.config.id)
-                    ,data = checkStatus.data; //获取选中的数据
-                switch(obj.event){
-                    case 'add':
-                        window.location = '${ctxPath}/User/viewAddUser';
-                        break;
-                    case 'update':
-                        if(data.length === 0){
-                            layer.msg('请选择一行');
-                        } else if(data.length > 1){
-                            layer.msg('只能同时编辑一个');
-                        } else {
-
-                            editUser( checkStatus.data[0].id);
-                        }
-                        break;
-                    case 'delete':
-                        if(data.length === 0){
-                            layer.msg('请选择一行');
-                        } else {
-                            var temp = [];
-                            for(var i=0; i<checkStatus.data.length;i++){
-                                temp[i] = checkStatus.data[i].id;
-                            }
-                            layer.confirm('真的删除用户么', function(index){
-
-                                delRoom( temp.toString() );
-                            });
-                        }
-                        break;
-                };
-            });
+          
 
             //{ps} 监听行工具事件
             table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
@@ -147,45 +110,20 @@
                 if(layEvent === 'detail'){
                     layer.msg('查看操作');
                 } else if(layEvent === 'del'){
-                    layer.confirm('真的删除用户么', function(index){
-                        console.log( data['id'] );
-                        delRoom( data['id'] );
+                    layer.confirm('真的删除客户么', function(index){
+                        console.log( data['clientId'] );
+                        delClient( data['clientId'] );
                     });
                 } else if(layEvent === 'edit'){
-                    //{1} 获取一个用户, 通过 ajax 来获取。
-                    //  data['id']: 表格上面的 id 值。
-                    editUser( data['id'] );
+                    //{1} 获取一个客户, 通过 ajax 来获取。
+                    //  data['clientId']: 表格上面的 clientId 值。
+                    editClient( data['clientId'] );
                 }
             });
 
-            //执行一个轮播实例
-            carousel.render({
-                elem: '#test1'
-                ,width: '100%' //设置容器宽度
-                ,height: 200
-                ,arrow: 'none' //不显示箭头
-                ,anim: 'fade' //切换动画方式
-            });
+         
 
-            //将日期直接嵌套在指定容器中
-            var dateIns = laydate.render({
-                elem: '#laydateDemo'
-                ,position: 'static'
-                ,calendar: true //是否开启公历重要节日
-                ,mark: { //标记重要日子
-                    '0-10-14': '生日'
-                    ,'2018-08-28': '新版'
-                    ,'2018-10-08': '神秘'
-                }
-                ,done: function(value, date, endDate){
-                    if(date.year == 2017 && date.month == 11 && date.date == 30){
-                        dateIns.hint('一不小心就月底了呢');
-                    }
-                }
-                ,change: function(value, date, endDate){
-                    layer.msg(value)
-                }
-            });
+         
 
             //分页
             laypage.render({
@@ -196,7 +134,7 @@
                 ,jump: function(obj, first){
                     if(!first){
                         layer.msg('第'+ obj.curr +'页', {offset: 'b'});
-                        alert( "TTTTTTTTT" );
+                      
                     }
                 }
             });
@@ -223,18 +161,7 @@
 
 <!-- {ps} 编写我们的 js 代码! -->
 <script>
-    //{ps} 这个是下拉列表{选项数据}
-    // 临时写死数据, 后面有时间再写一方法, 从后台获取。
-    var role_data = [
-        {text:"请选择角色",val:""},
-        {text:"酒店经理",val:"1"},
-        {text:"酒店前台",val:"2"},
-        {text:"保洁人员",val:"3"},
-        {text:"维修人员",val:"4"},
-        {text:"保洁人员",val:"5"},
-        {text:"后勤人员",val:"6"}
-    ];
-
+  
     //{ps} 这个是下拉列表{选项数据}
     var sex_data = [
         {text:"请选择性别",val:""},
@@ -250,26 +177,24 @@
     //{ps} 规定了弹框中会显示到哪些表单项目。
     //name: 要和后台 JavaBean 命名一样。
     var gInputs = [
-        {title:"用户帐号", name:"account", readonly:"readonly", type:"text"},
-        {title:"用户名称", name:"nickName", type:"text"},
-        {title:"设置密码", name:"password", type:"text"},
-        {title:"设置工号", name:"no", type:"text"},
+      
+        {title:"用户姓名", name:"name", type:"text"},
+        {title:"设置电话号码", name:"phone", type:"text"},
         {title:"设置性别", name:"sex", type:"select",options:sex_data},
-        {title:"设置角色", name:"roleId", type:"select",options:role_data},
-        {name:"id", type:"hide"}
+        {title:"身份证号", name:"cardId", readonly:"readonly", type:"text"},
+        {name:"clientId", type:"hide"}
     ];
 
 
-    function editUser( userId ){
+    function editClient( clientId ){
         $.ajax(
             {
-                url:'${ctxPath}/User/getUser', /* 数据接口 */
+                url:'${ctxPath}/client/select/'+clientId, /* 数据接口 */
                 type:'post',
-                data:{id:userId},
                 dataType:'json',
                 success:function( resp ){
                     if( resp['result']=='success' ){
-                        console.log( resp['user'] );
+                        console.log( resp['client'] );
                         onRecvMsg( resp );   //显示对话框
                     }else{
                         layer.msg('访问数据错误。');
@@ -283,22 +208,22 @@
     //     这一个方法会传一个 json 进来。
     function onRecvMsg( json ){
         //{ps} 生成表格 HTML
-        var HTML = makeTable( gInputs, json['user'] );
+        var HTML = makeTable( gInputs, json['client'] );
         //{ps} 弹出一个对话框。
         layer.open({
             type: 1
-            ,title: '编辑用户'      //显示标题栏
+            ,title: '编辑客户'      //显示标题栏
             ,closeBtn: false
             ,area: ['450px','350px']
             ,shade: 0
             ,id: 'LAY_layuipro'   //设定一个 id, 防止重复弹出
-            ,btn: ['保存用户', '关闭对话框']  //{ps} 两个按钮
+            ,btn: ['保存客户', '关闭对话框']  //{ps} 两个按钮
             ,btnAlign: 'c'        //居中对齐
             ,moveType: 1          //拖拽模式, 0 或者 1
             ,content: HTML        //这是上面生成的表格 html 代码
             ,yes: function(){
                 //{1} 当点击 '保存用户' 时候, 调用这个函数
-                saveUser();       //保存用户(写到数据库)
+                updateClient();       //保存用户(写到数据库)
                 //不建议这里关闭, 等消息回来才做。
                 //layer.closeAll(); //关闭对话框
             }
@@ -313,8 +238,8 @@
 
     //{ps}你要获取的项目
     var items = [
-        "id", "account", "password", "nickName",
-        "sex", "roleId", "no"
+        "clientId", "name", "phone", "sex",
+        "cardId"
     ];
 
     //{ps} 抓取表单数据
@@ -332,26 +257,26 @@
      *  提交数据, 通过 ajax 对象。
      *	提交地址: /User/saveUser
      */
-    function saveUser(){
+    function updateClient(){
         //{1}获取表单数据。
-        var _user = pickData();
-        console.log( _user );
+        var _client = pickData();
+        console.log( _client );
         //{2}使用ajax提交数据
         $.ajax({
-            url: '${ctxPath}/User/saveUser',
-            data: _user,
+            url: '${ctxPath}/client/update',
+            data: _client,
             type: 'post',
             dataType: 'json',
             success: function(resp){
                 //
                 console.log(resp);
-                var result = resp['result'];
+              
                 layer.closeAll();
-                if(result=='success'){
-                    layer.msg("更新用户："+resp['account']+'成功');
+                if(resp == 1){
+                    layer.msg("更新客户："+_client['name']+'  成功');
                     setTimeout(reloadPage,1500);
                 }else{
-                    layer.msg("更新用户失败:"+resp['account']+",原因："+resp['cause']);
+                    layer.msg("更新客户: "+_client['name']+"  失败:");
 
                 }
             }
@@ -360,18 +285,21 @@
     }
 
     function reloadPage(){
-        window.location = '${ctxPath}/User/viewList';
+        window.location = '${ctxPath}/client/viewClientList';
     }
 
-    function delRoom(_id) {
+    function delClient(clientId) {
         $.ajax({
-            url: '${ctxPath}/User/deleteUser',
-            data: {'id':_id},
+            url: '${ctxPath}/client/delete/'+clientId,
+          
             success: function (data) {
-                if(data == 'success'){
+                if(data == 1){
                     layer.closeAll();
                     layer.msg('删除成功');
                     setTimeout(reloadPage,1000);
+                }else{
+                	 layer.closeAll();
+                     layer.msg('删除失败');
                 }
 
             }

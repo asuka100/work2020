@@ -77,7 +77,7 @@
                   
             		if(resp != null){
                         layer.msg("添加："+resp['name']+'成功');
-                        setTimeout(reloadPage,1500);
+                        setTimeout(reloadPage,1000);
                     }else{
                         layer.msg("添加："+resp['name']+'失败');
 
@@ -85,12 +85,12 @@
                    
                 }
             });
-            layer.msg(JSON.stringify(data.field));
+            
             return false;
         });
     });
     function reloadPage(){
-        window.location = '${ctxPath}/User/viewList';
+        window.location = '${ctxPath}/client/viewClientList';
     }
 </script>
 </body>
