@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hotel.mapper.OrderDetailMapper" >
   <resultMap id="BaseResultMap" type="com.hotel.pojo.OrderDetail" >
+    <id column="id" property="id" jdbcType="INTEGER" />
     <result column="order_id" property="orderId" jdbcType="INTEGER" />
     <result column="room_id" property="roomId" jdbcType="INTEGER" />
     <result column="price" property="price" jdbcType="DOUBLE" />
@@ -65,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    order_id, room_id, price
+    id, order_id, room_id, price
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hotel.pojo.OrderDetailExample" >
     select
@@ -81,6 +82,16 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from order_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from order_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
   <delete id="deleteByExample" parameterType="com.hotel.pojo.OrderDetailExample" >
     delete from order_detail
     <if test="_parameter != null" >
@@ -88,14 +99,17 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.hotel.pojo.OrderDetail" >
-    insert into order_detail (order_id, room_id, price
-      )
-    values (#{orderId,jdbcType=INTEGER}, #{roomId,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE}
-      )
+    insert into order_detail (id, order_id, room_id, 
+      price)
+    values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{roomId,jdbcType=INTEGER}, 
+      #{price,jdbcType=DOUBLE})
   </insert>
   <insert id="insertSelective" parameterType="com.hotel.pojo.OrderDetail" >
     insert into order_detail
     <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
       <if test="orderId != null" >
         order_id,
       </if>
@@ -107,6 +121,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
       <if test="orderId != null" >
         #{orderId,jdbcType=INTEGER},
       </if>
@@ -127,6 +144,9 @@
   <update id="updateByExampleSelective" parameterType="map" >
     update order_detail
     <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
       <if test="record.orderId != null" >
         order_id = #{record.orderId,jdbcType=INTEGER},
       </if>
@@ -143,11 +163,34 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update order_detail
-    set order_id = #{record.orderId,jdbcType=INTEGER},
+    set id = #{record.id,jdbcType=INTEGER},
+      order_id = #{record.orderId,jdbcType=INTEGER},
       room_id = #{record.roomId,jdbcType=INTEGER},
       price = #{record.price,jdbcType=DOUBLE}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hotel.pojo.OrderDetail" >
+    update order_detail
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="roomId != null" >
+        room_id = #{roomId,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hotel.pojo.OrderDetail" >
+    update order_detail
+    set order_id = #{orderId,jdbcType=INTEGER},
+      room_id = #{roomId,jdbcType=INTEGER},
+      price = #{price,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

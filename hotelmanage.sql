@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50648
 File Encoding         : 65001
 
-Date: 2020-10-23 11:48:11
+Date: 2020-10-24 00:34:45
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,7 +20,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `client`;
 CREATE TABLE `client` (
-  `client_id` int(11) NOT NULL,
+  `client_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
   `sex` varchar(5) DEFAULT NULL,
   `phone` varchar(11) DEFAULT NULL,
@@ -81,7 +81,7 @@ INSERT INTO `employee_position` VALUES ('4', '保洁人员');
 -- ----------------------------
 DROP TABLE IF EXISTS `maintain_list`;
 CREATE TABLE `maintain_list` (
-  `maintain_id` int(11) NOT NULL,
+  `maintain_id` int(11) NOT NULL AUTO_INCREMENT,
   `room_id` int(11) NOT NULL,
   `employee_id_list` varchar(255) NOT NULL,
   `content` varchar(255) DEFAULT NULL,
@@ -147,7 +147,7 @@ INSERT INTO `menuitem` VALUES ('29', '4', '房间维修查询', '维修管理', 
 -- ----------------------------
 DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order` (
-  `order_id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL AUTO_INCREMENT,
   `client_id` int(11) NOT NULL,
   `create_employee_id` int(11) NOT NULL,
   `check_employee_id` int(11) DEFAULT NULL,
@@ -171,13 +171,13 @@ CREATE TABLE `order` (
 -- ----------------------------
 DROP TABLE IF EXISTS `order_detail`;
 CREATE TABLE `order_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) NOT NULL,
   `room_id` int(11) NOT NULL,
   `price` double DEFAULT NULL,
+  PRIMARY KEY (`id`),
   KEY `order_detail_room_fk` (`room_id`),
-  KEY `order_detail_order_fk` (`order_id`),
-  CONSTRAINT `order_detail_order_fk` FOREIGN KEY (`order_id`) REFERENCES `order` (`order_id`),
-  CONSTRAINT `order_detail_room_fk` FOREIGN KEY (`room_id`) REFERENCES `room` (`room_id`)
+  KEY `order_detail_order_fk` (`order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------

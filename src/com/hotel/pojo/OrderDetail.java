@@ -1,11 +1,21 @@
 package com.hotel.pojo;
 
 public class OrderDetail {
+    private Integer id;
+
     private Integer orderId;
 
     private Integer roomId;
 
     private Double price;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Integer getOrderId() {
         return orderId;
