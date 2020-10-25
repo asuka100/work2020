@@ -9,6 +9,8 @@ public class MaintainList {
 
     private String content;
 
+    private String status;
+
     public Integer getMaintainId() {
         return maintainId;
     }
@@ -39,5 +41,13 @@ public class MaintainList {
 
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status == null ? null : status.trim();
     }
 }

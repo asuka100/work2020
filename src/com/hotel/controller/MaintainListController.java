@@ -23,7 +23,7 @@ public class MaintainListController {
 	//int[] employeeId 可以改为int ...employeeId一样可以接收多个参数
 	@ResponseBody
 	@RequestMapping(value = "/create")
-	public Object createMaintain(int roomId, int[] employeeId, String content) {
+	public Object createMaintain(int roomId, String employeeId, String content) {
 		JSONObject jsObj = new JSONObject();
 		if(roomId==0||employeeId==null) {
 			jsObj.put("error","roomId==0||employeeId==null");
@@ -33,14 +33,8 @@ public class MaintainListController {
 		MaintainList maintain = new MaintainList();
 		maintain.setRoomId(roomId);
 		maintain.setContent(content);
-		
-		//把多个员工id组合并转换为String类型，如 员工id：1、2、3，转换后为 1_2_3_
-		String employeeIdList = "";
-		for(int id:employeeId) {
-			employeeIdList += id+'_';
-		}
-		System.out.println(employeeIdList);
-		maintain.setEmployeeIdList(employeeIdList);
+		maintain.setEmployeeIdList(employeeId);
+		maintain.setStatus("待完成");
 		
 		int result = service.insertMaintain(maintain);
 		
