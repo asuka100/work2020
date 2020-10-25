@@ -69,6 +69,17 @@ public class RoomTypeController {
 		return jsObj;
 	}
 	
+	@RequestMapping(value = "/findAll")
+	@ResponseBody
+	public List<RoomType> findAll() {
+		
+		
+		List<RoomType> list = service.selectAll();
+
+		
+		return list;
+	}
+	
 	@RequestMapping(value = "/select/{id}")
 	@ResponseBody
 	public String selectById(@PathVariable int id) {

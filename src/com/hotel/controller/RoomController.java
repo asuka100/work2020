@@ -24,6 +24,16 @@ public class RoomController {
 	@Autowired
 	private RoomService service;
 	
+	@RequestMapping("/viewAddRoom")
+	public String viewAddRoom() {
+		return "/WEB-INF/jsp/room/addRoom";
+	}
+	
+	@RequestMapping("/viewRoomList")
+	public String viewRoomList() {
+		return "/WEB-INF/jsp/room/roomList";
+	}
+	
 	/**
 	 * 新建房间
 	 * @param room
@@ -35,6 +45,7 @@ public class RoomController {
 		if(room==null||room.getRoomId()==null||room.getRoomStatusId()==null||room.getRoomTypeId()==null) {
 			return 0;
 		}
+		System.out.println(room);
 		return service.insert(room);
 	}
 	
@@ -47,6 +58,8 @@ public class RoomController {
 	public Object selectAll(int page, int limit) {
 		PageHelper.startPage(page,limit);
 		List<Room> list = service.selectAll();
+		
+		System.out.println(list);
 		PageInfo info = new PageInfo<>(list);
 		long total = info.getTotal();
 		JSONArray jsonArray = new JSONArray();

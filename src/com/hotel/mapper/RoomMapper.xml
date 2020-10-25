@@ -6,8 +6,7 @@
     <result column="room_status_id" property="roomStatusId" jdbcType="INTEGER" />
     <result column="room_type_id" property="roomTypeId" jdbcType="INTEGER" />
     <result column="describe" property="describe" jdbcType="VARCHAR" />
-    <association column="room_status_id" property="roomStatus" select="com.hotel.mapper.RoomStatusMapper.selectByPrimaryKey"></association>
-    <association column="room_type_id" property="roomType" select="com.hotel.mapper.RoomTypeMapper.selectByPrimaryKey"></association>
+   
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >

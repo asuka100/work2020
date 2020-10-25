@@ -30,4 +30,12 @@ public class RoomStatus {
     public void setDescript(String descript) {
         this.descript = descript == null ? null : descript.trim();
     }
+
+	@Override
+	public String toString() {
+		return "RoomStatus [roomStatusId=" + roomStatusId + ", statusName=" + statusName + ", descript=" + descript
+				+ "]";
+	}
+    
+    
 }

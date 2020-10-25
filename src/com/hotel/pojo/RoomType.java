@@ -40,4 +40,12 @@ public class RoomType {
     public void setDecript(String decript) {
         this.decript = decript == null ? null : decript.trim();
     }
+
+	@Override
+	public String toString() {
+		return "RoomType [roomTypeId=" + roomTypeId + ", typeName=" + typeName + ", price=" + price + ", decript="
+				+ decript + "]";
+	}
+    
+    
 }

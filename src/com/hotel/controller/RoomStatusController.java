@@ -50,12 +50,13 @@ public class RoomStatusController {
 	 * 返回房态列表
 	 * @return json:JSON格式的列表数据
 	 */
-	@RequestMapping(value = "/list", produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "/list")
 	@ResponseBody
-	public String selectAll() {
+	public List<RoomStatus> selectAll() {
 		List<RoomStatus> list = service.selectAll();
-		String json = JSON.toJSONString(list);
-		return json;
+		System.out.println(list);
+	
+		return list;
 	}
 	
 	/**
