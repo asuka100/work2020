@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.hotel.pojo.RoomStatus" >
     <id column="room_status_id" property="roomStatusId" jdbcType="INTEGER" />
     <result column="status_name" property="statusName" jdbcType="VARCHAR" />
+    <result column="descript" property="descript" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -64,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    room_status_id, status_name
+    room_status_id, status_name, descript
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hotel.pojo.RoomStatusExample" >
     select
@@ -97,8 +98,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.hotel.pojo.RoomStatus" >
-    insert into room_status (room_status_id, status_name)
-    values (#{roomStatusId,jdbcType=INTEGER}, #{statusName,jdbcType=VARCHAR})
+    insert into room_status (room_status_id, status_name, descript
+      )
+    values (#{roomStatusId,jdbcType=INTEGER}, #{statusName,jdbcType=VARCHAR}, #{descript,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.hotel.pojo.RoomStatus" >
     insert into room_status
@@ -109,6 +112,9 @@
       <if test="statusName != null" >
         status_name,
       </if>
+      <if test="descript != null" >
+        descript,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="roomStatusId != null" >
@@ -116,6 +122,9 @@
       </if>
       <if test="statusName != null" >
         #{statusName,jdbcType=VARCHAR},
+      </if>
+      <if test="descript != null" >
+        #{descript,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -134,6 +143,9 @@
       <if test="record.statusName != null" >
         status_name = #{record.statusName,jdbcType=VARCHAR},
       </if>
+      <if test="record.descript != null" >
+        descript = #{record.descript,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -142,7 +154,8 @@
   <update id="updateByExample" parameterType="map" >
     update room_status
     set room_status_id = #{record.roomStatusId,jdbcType=INTEGER},
-      status_name = #{record.statusName,jdbcType=VARCHAR}
+      status_name = #{record.statusName,jdbcType=VARCHAR},
+      descript = #{record.descript,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -153,12 +166,16 @@
       <if test="statusName != null" >
         status_name = #{statusName,jdbcType=VARCHAR},
       </if>
+      <if test="descript != null" >
+        descript = #{descript,jdbcType=VARCHAR},
+      </if>
     </set>
     where room_status_id = #{roomStatusId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.hotel.pojo.RoomStatus" >
     update room_status
-    set status_name = #{statusName,jdbcType=VARCHAR}
+    set status_name = #{statusName,jdbcType=VARCHAR},
+      descript = #{descript,jdbcType=VARCHAR}
     where room_status_id = #{roomStatusId,jdbcType=INTEGER}
   </update>
 </mapper>

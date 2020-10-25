@@ -233,6 +233,136 @@ public class RoomTypeExample {
             addCriterion("type_name not between", value1, value2, "typeName");
             return (Criteria) this;
         }
+
+        public Criteria andPriceIsNull() {
+            addCriterion("price is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceIsNotNull() {
+            addCriterion("price is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceEqualTo(Double value) {
+            addCriterion("price =", value, "price");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceNotEqualTo(Double value) {
+            addCriterion("price <>", value, "price");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceGreaterThan(Double value) {
+            addCriterion("price >", value, "price");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceGreaterThanOrEqualTo(Double value) {
+            addCriterion("price >=", value, "price");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceLessThan(Double value) {
+            addCriterion("price <", value, "price");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceLessThanOrEqualTo(Double value) {
+            addCriterion("price <=", value, "price");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceIn(List<Double> values) {
+            addCriterion("price in", values, "price");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceNotIn(List<Double> values) {
+            addCriterion("price not in", values, "price");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceBetween(Double value1, Double value2) {
+            addCriterion("price between", value1, value2, "price");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceNotBetween(Double value1, Double value2) {
+            addCriterion("price not between", value1, value2, "price");
+            return (Criteria) this;
+        }
+
+        public Criteria andDecriptIsNull() {
+            addCriterion("decript is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDecriptIsNotNull() {
+            addCriterion("decript is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDecriptEqualTo(String value) {
+            addCriterion("decript =", value, "decript");
+            return (Criteria) this;
+        }
+
+        public Criteria andDecriptNotEqualTo(String value) {
+            addCriterion("decript <>", value, "decript");
+            return (Criteria) this;
+        }
+
+        public Criteria andDecriptGreaterThan(String value) {
+            addCriterion("decript >", value, "decript");
+            return (Criteria) this;
+        }
+
+        public Criteria andDecriptGreaterThanOrEqualTo(String value) {
+            addCriterion("decript >=", value, "decript");
+            return (Criteria) this;
+        }
+
+        public Criteria andDecriptLessThan(String value) {
+            addCriterion("decript <", value, "decript");
+            return (Criteria) this;
+        }
+
+        public Criteria andDecriptLessThanOrEqualTo(String value) {
+            addCriterion("decript <=", value, "decript");
+            return (Criteria) this;
+        }
+
+        public Criteria andDecriptLike(String value) {
+            addCriterion("decript like", value, "decript");
+            return (Criteria) this;
+        }
+
+        public Criteria andDecriptNotLike(String value) {
+            addCriterion("decript not like", value, "decript");
+            return (Criteria) this;
+        }
+
+        public Criteria andDecriptIn(List<String> values) {
+            addCriterion("decript in", values, "decript");
+            return (Criteria) this;
+        }
+
+        public Criteria andDecriptNotIn(List<String> values) {
+            addCriterion("decript not in", values, "decript");
+            return (Criteria) this;
+        }
+
+        public Criteria andDecriptBetween(String value1, String value2) {
+            addCriterion("decript between", value1, value2, "decript");
+            return (Criteria) this;
+        }
+
+        public Criteria andDecriptNotBetween(String value1, String value2) {
+            addCriterion("decript not between", value1, value2, "decript");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

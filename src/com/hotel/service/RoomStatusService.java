@@ -6,7 +6,7 @@ import com.hotel.pojo.RoomStatus;
 
 public interface RoomStatusService {
 
-	int insertRoomStatus(String statusName);
+	int insertRoomStatus(RoomStatus status);
 	
 	int deleteById(int roomStatusId);
 	

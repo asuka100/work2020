@@ -7,9 +7,11 @@ public class Room {
 
     private Integer roomTypeId;
 
-    private Double price;
-
     private String describe;
+    
+    private RoomStatus roomStatus;
+    
+    private RoomType roomType;
 
     public Integer getRoomId() {
         return roomId;
@@ -35,14 +37,6 @@ public class Room {
         this.roomTypeId = roomTypeId;
     }
 
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
     public String getDescribe() {
         return describe;
     }
@@ -50,4 +44,21 @@ public class Room {
     public void setDescribe(String describe) {
         this.describe = describe == null ? null : describe.trim();
     }
+
+	public RoomStatus getRoomStatus() {
+		return roomStatus;
+	}
+
+	public void setRoomStatus(RoomStatus roomStatus) {
+		this.roomStatus = roomStatus;
+	}
+
+	public RoomType getRoomType() {
+		return roomType;
+	}
+
+	public void setRoomType(RoomType roomType) {
+		this.roomType = roomType;
+	}
+    
 }

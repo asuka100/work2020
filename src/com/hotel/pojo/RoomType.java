@@ -5,13 +5,10 @@ public class RoomType {
 
     private String typeName;
 
-    public RoomType() { }
-  //id自增
-    public RoomType(String typeRoom) {
-    	super();
-    	this.setTypeName(typeRoom);
-    }
-    
+    private Double price;
+
+    private String decript;
+
     public Integer getRoomTypeId() {
         return roomTypeId;
     }
@@ -26,5 +23,21 @@ public class RoomType {
 
     public void setTypeName(String typeName) {
         this.typeName = typeName == null ? null : typeName.trim();
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public String getDecript() {
+        return decript;
+    }
+
+    public void setDecript(String decript) {
+        this.decript = decript == null ? null : decript.trim();
     }
 }

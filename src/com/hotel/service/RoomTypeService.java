@@ -6,7 +6,7 @@ import com.hotel.pojo.RoomType;
 
 public interface RoomTypeService {
 
-	int insertRoomType(String typeName);
+	int insertRoomType(RoomType type);
 	
 	int deleteById(int typeId);
 	

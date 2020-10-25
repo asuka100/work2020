@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 import com.hotel.pojo.RoomStatus;
 import com.hotel.service.RoomStatusService;
+import com.hotel.service.Impl.RoomStatusServiceImpl;
 
 @Controller
 @RequestMapping(value = "/roomStatus")
@@ -26,9 +27,12 @@ public class RoomStatusController {
 	 */
 	@RequestMapping(value = "/create")
 	@ResponseBody
-	public String createRoomStatus(String status_name) {
-		int result = service.insertRoomStatus(status_name);
-		return result+"";
+	public int createRoomStatus(RoomStatus roomStatus) {
+		if(roomStatus.getStatusName()==null) {
+			return 0;
+		}
+		int result = service.insertRoomStatus(roomStatus);
+		return result;
 	}
 	
 	/**
@@ -81,6 +85,5 @@ public class RoomStatusController {
 		int result = service.updateNameById(roomStatus);
 		return result;
 	}
-	
 
 }

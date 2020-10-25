@@ -28,12 +28,12 @@ public class RoomStatusServiceImpl implements RoomStatusService {
 	 * 新增房态
 	 */
 	@Override
-	public int insertRoomStatus(String statusName) {
+	public int insertRoomStatus(RoomStatus status) {
 		//检查是否存在有同名房态
-		if(this.selectSatusByName(statusName)!=null) {
+		if(this.selectSatusByName(status.getStatusName())!=null) {
 			return 0;
 		}
-		return mapper.insertSelective(new RoomStatus(statusName));
+		return mapper.insertSelective(status);
 	}
 	
 	/**

@@ -20,12 +20,12 @@ public class RoomTypeServiceImpl implements RoomTypeService {
 	 * 增加房间类型
 	 */
 	@Override
-	public int insertRoomType(String typeName) {
-		if(this.selectByTypeName(typeName)!=null) {
+	public int insertRoomType(RoomType type) {
+		if(this.selectByTypeName(type.getTypeName())!=null) {
 			//已存在同名的房间类型
 			return 0;
 		}
-		return mapper.insertSelective(new RoomType(typeName));
+		return mapper.insertSelective(type);
 	}
 
 	@Override

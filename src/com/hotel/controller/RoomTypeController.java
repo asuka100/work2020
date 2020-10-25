@@ -32,8 +32,11 @@ public class RoomTypeController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/create")
-	public int createRoomType(String typeName) {
-		int result = service.insertRoomType(typeName);
+	public int createRoomType(RoomType roomType) {
+		if(roomType.getTypeName()==null||roomType.getPrice()==0.0) {
+			return 0;
+		}
+		int result = service.insertRoomType(roomType);
 		return result;
 	}
 	
