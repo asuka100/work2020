@@ -7,6 +7,7 @@
     <result column="employee_id_list" property="employeeIdList" jdbcType="VARCHAR" />
     <result column="content" property="content" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="VARCHAR" />
+    <association column="employee_id_list" property="employee" select="com.hotel.mapper.EmployeeMapper.selectByPrimaryKey"></association>
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >

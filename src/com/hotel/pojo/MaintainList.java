@@ -10,6 +10,8 @@ public class MaintainList {
     private String content;
 
     private String status;
+    
+    private Employee employee;
 
     public Integer getMaintainId() {
         return maintainId;
