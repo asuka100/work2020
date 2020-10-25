@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.hotel.pojo.Employee;
 import com.hotel.pojo.RoomType;
 import com.hotel.service.RoomTypeService;
 
@@ -49,10 +53,20 @@ public class RoomTypeController {
 	
 	@RequestMapping(value = "/list")
 	@ResponseBody
-	public String selectAll() {
+	public Object selectAll(int page, int limit) {
+		PageHelper.startPage(page, limit);
+		
 		List<RoomType> list = service.selectAll();
-		String json = JSON.toJSONString(list);
-		return json;
+		PageInfo info = new PageInfo<>(list);
+		long total = info.getTotal();
+		
+		JSONObject jsObj = new JSONObject();
+		jsObj.put("code","0");	//响应码：0
+		jsObj.put("msg","");	//消息：空
+		jsObj.put("count",total);	//总记录数
+		jsObj.put("data",list);	//列表数据
+		
+		return jsObj;
 	}
 	
 	@RequestMapping(value = "/select/{id}")

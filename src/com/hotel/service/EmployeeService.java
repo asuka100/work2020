@@ -14,4 +14,6 @@ public interface EmployeeService {
 	int updateEmployee(Employee employee);
 	
 	int deleteEmployeeById(int employeeId);
+
+	List<Employee> findAllMaintainEmployee();
 }

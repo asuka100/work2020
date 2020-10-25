@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.hotel.mapper.EmployeeMapper;
 import com.hotel.pojo.Employee;
+import com.hotel.pojo.EmployeeExample;
+import com.hotel.pojo.EmployeeExample.Criteria;
 import com.hotel.service.EmployeeService;
 
 @Service
@@ -29,7 +31,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public List<Employee> selectAll() {
-		return mapper.selectByExample(null);
+		return mapper.selectEmployeeAndPosition();
 	}
 
 	@Override
@@ -41,6 +43,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public int deleteEmployeeById(int employeeId) {
 		
 		return mapper.deleteByPrimaryKey(employeeId);
+	}
+
+	@Override
+	public List<Employee> findAllMaintainEmployee() {
+		
+		EmployeeExample example = new EmployeeExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andEmployeePositionIdGreaterThanOrEqualTo(3);
+		
+		return mapper.selectByExample(example);
 	}
 
 }

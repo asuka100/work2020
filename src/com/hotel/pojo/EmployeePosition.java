@@ -21,4 +21,10 @@ public class EmployeePosition {
     public void setPositionName(String positionName) {
         this.positionName = positionName == null ? null : positionName.trim();
     }
+
+	@Override
+	public String toString() {
+		return positionName ;
+	}
+    
 }

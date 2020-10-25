@@ -88,10 +88,12 @@
               
                 ,totalRow: false //{ps} 开启合计行
                 ,cols: [[       //{ps} 表头
-                    {type: 'checkbox', fixed: 'left'},
+                  
 
-                    {field: 'id', title: '类型编号', width:120, sort: true, fixed: 'left'},
-                    {field: 'typeName', title: '类型名称', width:200 ,sort: true, }
+                    {field: 'roomTypeId', title: '类型编号', width:120, sort: true, fixed: 'left'},
+                    {field: 'typeName', title: '类型名称', width:200 ,sort: true, },
+                    {field: 'price', title: '价格', width:200 ,sort: true, },
+                    {field: 'decript', title: '房间类型描述', width:200 ,sort: true, }
                   
                 ]]
             });
@@ -107,13 +109,13 @@
                     layer.msg('查看操作');
                 } else if(layEvent === 'del'){
                     layer.confirm('真的要删除该房间类型么', function(index){
-                        console.log( data['id'] );
-                         delRoomType( data['id'] );
+                        console.log( data['roomTypeId'] );
+                         delRoomType( data['roomTypeId'] );
                     });
                 } else if(layEvent === 'edit'){
                     //{1} 获取一个房间, 通过 ajax 来获取。
                     //  data['id']: 表格上面的 id 值。
-                    editRoomType( data['id'] );
+                    editRoomType( data['roomTypeId'] );
                 }
             });
 
@@ -167,8 +169,9 @@
     function getInputs(){
         var gInputs = [
             {title:"类型名称", name:"typeName", type:"text"},
-          
-            {name:"id", type:"hide"}
+            {title:"价格", name:"price", type:"text"},
+            {title:"类型描述", name:"decript", type:"text"},
+            {name:"roomTypeId", type:"hide"}
         ];
         return gInputs;
     }

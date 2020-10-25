@@ -20,6 +20,17 @@ public class MaintainListController {
 	@Autowired
 	private MaintainListService service;
 	
+	@RequestMapping("/viewAddMaintain")
+	public String viewAddMaintain() {
+		return "/WEB-INF/jsp/maintain/addMaintain";
+	}
+	
+	@RequestMapping("/viewMaintainList")
+	public String viewMaintainList() {
+		return "/WEB-INF/jsp/maintain/MaintainList";
+	}
+	
+	
 	//int[] employeeId 可以改为int ...employeeId一样可以接收多个参数
 	@ResponseBody
 	@RequestMapping(value = "/create")

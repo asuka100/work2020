@@ -10,6 +10,10 @@
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="card_id" property="cardId" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="INTEGER" />
+    <association  property="employeePosition" javaType="com.hotel.pojo.EmployeePosition">
+    	  <id column="employee_position_id" property="employeePositionId" jdbcType="INTEGER" />
+  		  <result column="position_name" property="positionName" jdbcType="VARCHAR" />
+    </association>
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -258,4 +262,11 @@
       password = #{password,jdbcType=INTEGER}
     where employee_id = #{employeeId,jdbcType=INTEGER}
   </update>
+  
+  <select id="selectEmployeeAndPosition" resultMap="BaseResultMap">
+  	select e.*, p.position_name
+  	from employee e, employee_position p
+  	where e.employee_position_id = p.employee_position_id
+  </select>
+  
 </mapper>

@@ -17,8 +17,20 @@ public class Employee {
     private String cardId;
 
     private Integer password;
+    
+    private EmployeePosition employeePosition;
 
-    public Integer getEmployeeId() {
+    
+    
+    public EmployeePosition getEmployeePosition() {
+		return employeePosition;
+	}
+
+	public void setEmployeePosition(EmployeePosition employeePosition) {
+		this.employeePosition = employeePosition;
+	}
+
+	public Integer getEmployeeId() {
         return employeeId;
     }
 

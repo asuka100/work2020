@@ -94,14 +94,15 @@
                   
                 	
                     {field: 'employeeId', title: '账号', width:80, sort: true, fixed: 'left', align:'center'},
-                    {field: 'employeePositionId', title: '职位id', width:120,sort: true, align:'center'},
+                    {templet:'<div>{{d.employeePosition.positionName}}</div>',title: '职位', width: 150, sort: true, align:'center'},
                     {field: 'name', title: '姓名', width:80, sort: true, align:'center'},
                     {field: 'sex', title: '性别', width:100, sort: true, align:'center'},
                     {field: 'age', title: '年龄', width:80, sort: true, align:'center'},
                     {field: 'phone', title: '电话号码', width:150, sort: true, align:'center'},
                     {field: 'cardId', title: '身份证号', width:200, sort: true, align:'center'},
                     {field: 'password', title: '密码', width:120, sort: true, align:'center'},
-
+               		
+                   
                     {fixed: 'right', title: '操作', width: 185, align:'center', toolbar: '#barDemo'}
                 ]]
             });
@@ -191,7 +192,7 @@
         {title:"设置密码", name:"password", type:"text"},
         {title:"身份证号", name:"cardId", readonly:"readonly", type:"text"},
         {title:"设置性别", name:"sex", type:"select",options:sex_data},
-        {title:"设置职位", name:"roleId", type:"select",options:role_data},
+        {title:"设置职位", name:"employeePositionId", type:"select",options:role_data},
         {title:"设置年龄", name:"age", type:"text"},
         {title:"设置电话号码", name:"phone", type:"text"}
     ];

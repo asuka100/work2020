@@ -58,11 +58,23 @@ public class EmployeeController {
 		}else {
 			jsObj.put("result", "success");
 			jsObj.put("employee",employee);	//列表数据
+			
 		}
 		
 		
 		return jsObj;
 		
+	}
+	
+	@RequestMapping("/findAllMaintainEmployee")
+	@ResponseBody
+	public Object findAllMaintainEmployee() {
+		
+		List<Employee> employeeList = service.findAllMaintainEmployee();
+		JSONObject jsObj = new JSONObject();
+		jsObj.put("employeeList", employeeList);
+		
+		return jsObj;
 	}
 
 	@RequestMapping(value = "/select/all")
@@ -80,7 +92,7 @@ public class EmployeeController {
 		jsObj.put("msg","");	//消息：空
 		jsObj.put("count",total);	//总记录数
 		jsObj.put("data",list);	//列表数据
-		
+
 		return jsObj;
 		
 	}
