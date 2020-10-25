@@ -19,6 +19,17 @@ public class RoomTypeController {
 	@Autowired
 	private RoomTypeService service;
 	
+	@RequestMapping("/viewAddRoomType")
+	public String viewAddRoomType() {
+		return "/WEB-INF/jsp/roomType/addRoomType";
+	}
+	
+	@RequestMapping("/viewRoomTypeList")
+	public String viewRoomTypeList() {
+		
+		return "/WEB-INF/jsp/roomType/roomTypeList";
+	}
+	
 	@ResponseBody
 	@RequestMapping(value = "/create")
 	public int createRoomType(String typeName) {
