@@ -193,4 +193,10 @@
       price = #{price,jdbcType=DOUBLE}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectByOrderId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  	select 
+    <include refid="Base_Column_List" />
+    from order_detail
+    where order_id = #{order_id,jdbcType=INTEGER}
+  </select>
 </mapper>

@@ -10,6 +10,7 @@
     <result column="status" property="status" jdbcType="VARCHAR" />
     <result column="total_price" property="totalPrice" jdbcType="DOUBLE" />
     <result column="date" property="date" jdbcType="TIMESTAMP" />
+    <collection column="order_id" property="orderDetail" ofType="com.hotel.pojo.OrderDetail" select="com.hotel.mapper.OrderDetailMapper.selectByOrderId"></collection>
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >

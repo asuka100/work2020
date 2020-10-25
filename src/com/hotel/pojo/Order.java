@@ -1,6 +1,7 @@
 package com.hotel.pojo;
 
 import java.util.Date;
+import java.util.List;
 
 public class Order {
     private Integer orderId;
@@ -18,6 +19,9 @@ public class Order {
     private Double totalPrice;
 
     private Date date;
+    
+    private List<OrderDetail> orderDetail;
+    
 
     public Integer getOrderId() {
         return orderId;
