@@ -52,4 +52,13 @@ public class MaintainList {
     public void setStatus(String status) {
         this.status = status == null ? null : status.trim();
     }
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+    
 }
