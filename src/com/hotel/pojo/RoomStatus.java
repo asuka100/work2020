@@ -5,7 +5,7 @@ public class RoomStatus {
 
     private String statusName;
 
-    private String descript;
+    private String descriptions;
 
     public Integer getRoomStatusId() {
         return roomStatusId;
@@ -23,19 +23,11 @@ public class RoomStatus {
         this.statusName = statusName == null ? null : statusName.trim();
     }
 
-    public String getDescript() {
-        return descript;
+    public String getDescriptions() {
+        return descriptions;
     }
 
-    public void setDescript(String descript) {
-        this.descript = descript == null ? null : descript.trim();
+    public void setDescriptions(String descriptions) {
+        this.descriptions = descriptions == null ? null : descriptions.trim();
     }
-
-	@Override
-	public String toString() {
-		return "RoomStatus [roomStatusId=" + roomStatusId + ", statusName=" + statusName + ", descript=" + descript
-				+ "]";
-	}
-    
-    
 }

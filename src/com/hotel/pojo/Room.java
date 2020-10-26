@@ -7,7 +7,7 @@ public class Room {
 
     private Integer roomTypeId;
 
-    private String describe;
+    private String descriptions;
     
     private RoomStatus roomStatus;
     
@@ -37,12 +37,12 @@ public class Room {
         this.roomTypeId = roomTypeId;
     }
 
-    public String getDescribe() {
-        return describe;
+    public String getDescriptions() {
+        return descriptions;
     }
 
-    public void setDescribe(String describe) {
-        this.describe = describe == null ? null : describe.trim();
+    public void setDescriptions(String descriptions) {
+        this.descriptions = descriptions == null ? null : descriptions.trim();
     }
 
 	public RoomStatus getRoomStatus() {
@@ -60,13 +60,4 @@ public class Room {
 	public void setRoomType(RoomType roomType) {
 		this.roomType = roomType;
 	}
-
-	@Override
-	public String toString() {
-		return "Room [roomId=" + roomId + ", roomStatusId=" + roomStatusId + ", roomTypeId=" + roomTypeId
-				+ ", describe=" + describe + ", roomStatus=" + roomStatus + ", roomType=" + roomType + "]";
-	}
-	
-	
-    
 }

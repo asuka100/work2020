@@ -7,7 +7,7 @@ public class RoomType {
 
     private Double price;
 
-    private String decript;
+    private String descriptions;
 
     public Integer getRoomTypeId() {
         return roomTypeId;
@@ -33,19 +33,11 @@ public class RoomType {
         this.price = price;
     }
 
-    public String getDecript() {
-        return decript;
+    public String getDescriptions() {
+        return descriptions;
     }
 
-    public void setDecript(String decript) {
-        this.decript = decript == null ? null : decript.trim();
+    public void setDescriptions(String descriptions) {
+        this.descriptions = descriptions == null ? null : descriptions.trim();
     }
-
-	@Override
-	public String toString() {
-		return "RoomType [roomTypeId=" + roomTypeId + ", typeName=" + typeName + ", price=" + price + ", decript="
-				+ decript + "]";
-	}
-    
-    
 }

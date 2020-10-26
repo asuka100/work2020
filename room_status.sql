@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50648
 File Encoding         : 65001
 
-Date: 2020-10-25 22:19:12
+Date: 2020-10-26 13:03:52
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -22,7 +22,7 @@ DROP TABLE IF EXISTS `room_status`;
 CREATE TABLE `room_status` (
   `room_status_id` int(11) NOT NULL AUTO_INCREMENT,
   `status_name` varchar(50) DEFAULT NULL,
-  `descript` varchar(255) DEFAULT NULL,
+  `descriptions` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`room_status_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 

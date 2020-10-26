@@ -5,7 +5,7 @@
     <id column="room_type_id" property="roomTypeId" jdbcType="INTEGER" />
     <result column="type_name" property="typeName" jdbcType="VARCHAR" />
     <result column="price" property="price" jdbcType="DOUBLE" />
-    <result column="decript" property="decript" jdbcType="VARCHAR" />
+    <result column="descriptions" property="descriptions" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -66,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    room_type_id, type_name, price, decript
+    room_type_id, type_name, price, descriptions
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hotel.pojo.RoomTypeExample" >
     select
@@ -100,9 +100,9 @@
   </delete>
   <insert id="insert" parameterType="com.hotel.pojo.RoomType" >
     insert into room_type (room_type_id, type_name, price, 
-      decript)
+      descriptions)
     values (#{roomTypeId,jdbcType=INTEGER}, #{typeName,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, 
-      #{decript,jdbcType=VARCHAR})
+      #{descriptions,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.hotel.pojo.RoomType" >
     insert into room_type
@@ -116,8 +116,8 @@
       <if test="price != null" >
         price,
       </if>
-      <if test="decript != null" >
-        decript,
+      <if test="descriptions != null" >
+        descriptions,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -130,8 +130,8 @@
       <if test="price != null" >
         #{price,jdbcType=DOUBLE},
       </if>
-      <if test="decript != null" >
-        #{decript,jdbcType=VARCHAR},
+      <if test="descriptions != null" >
+        #{descriptions,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -153,8 +153,8 @@
       <if test="record.price != null" >
         price = #{record.price,jdbcType=DOUBLE},
       </if>
-      <if test="record.decript != null" >
-        decript = #{record.decript,jdbcType=VARCHAR},
+      <if test="record.descriptions != null" >
+        descriptions = #{record.descriptions,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -166,7 +166,7 @@
     set room_type_id = #{record.roomTypeId,jdbcType=INTEGER},
       type_name = #{record.typeName,jdbcType=VARCHAR},
       price = #{record.price,jdbcType=DOUBLE},
-      decript = #{record.decript,jdbcType=VARCHAR}
+      descriptions = #{record.descriptions,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -180,8 +180,8 @@
       <if test="price != null" >
         price = #{price,jdbcType=DOUBLE},
       </if>
-      <if test="decript != null" >
-        decript = #{decript,jdbcType=VARCHAR},
+      <if test="descriptions != null" >
+        descriptions = #{descriptions,jdbcType=VARCHAR},
       </if>
     </set>
     where room_type_id = #{roomTypeId,jdbcType=INTEGER}
@@ -190,7 +190,7 @@
     update room_type
     set type_name = #{typeName,jdbcType=VARCHAR},
       price = #{price,jdbcType=DOUBLE},
-      decript = #{decript,jdbcType=VARCHAR}
+      descriptions = #{descriptions,jdbcType=VARCHAR}
     where room_type_id = #{roomTypeId,jdbcType=INTEGER}
   </update>
 </mapper>

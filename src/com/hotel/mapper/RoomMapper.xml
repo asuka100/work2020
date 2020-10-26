@@ -5,8 +5,9 @@
     <id column="room_id" property="roomId" jdbcType="INTEGER" />
     <result column="room_status_id" property="roomStatusId" jdbcType="INTEGER" />
     <result column="room_type_id" property="roomTypeId" jdbcType="INTEGER" />
-    <result column="describe" property="describe" jdbcType="VARCHAR" />
-   
+    <result column="descriptions" property="descriptions" jdbcType="VARCHAR" />
+   	<association column="room_status_id" property="roomStatus" select="com.hotel.mapper.RoomStatusMapper.selectByPrimaryKey" />
+   	<association column="room_type_id" property="roomType" select="com.hotel.mapper.RoomTypeMapper.selectByPrimaryKey" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    room_id, room_status_id, room_type_id, describe
+    room_id, room_status_id, room_type_id, descriptions
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hotel.pojo.RoomExample" >
     select
@@ -101,9 +102,9 @@
   </delete>
   <insert id="insert" parameterType="com.hotel.pojo.Room" >
     insert into room (room_id, room_status_id, room_type_id, 
-      describe)
+      descriptions)
     values (#{roomId,jdbcType=INTEGER}, #{roomStatusId,jdbcType=INTEGER}, #{roomTypeId,jdbcType=INTEGER}, 
-      #{describe,jdbcType=VARCHAR})
+      #{descriptions,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.hotel.pojo.Room" >
     insert into room
@@ -117,8 +118,8 @@
       <if test="roomTypeId != null" >
         room_type_id,
       </if>
-      <if test="describe != null" >
-        describe,
+      <if test="descriptions != null" >
+        descriptions,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -131,8 +132,8 @@
       <if test="roomTypeId != null" >
         #{roomTypeId,jdbcType=INTEGER},
       </if>
-      <if test="describe != null" >
-        #{describe,jdbcType=VARCHAR},
+      <if test="descriptions != null" >
+        #{descriptions,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -154,8 +155,8 @@
       <if test="record.roomTypeId != null" >
         room_type_id = #{record.roomTypeId,jdbcType=INTEGER},
       </if>
-      <if test="record.describe != null" >
-        describe = #{record.describe,jdbcType=VARCHAR},
+      <if test="record.descriptions != null" >
+        descriptions = #{record.descriptions,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -167,7 +168,7 @@
     set room_id = #{record.roomId,jdbcType=INTEGER},
       room_status_id = #{record.roomStatusId,jdbcType=INTEGER},
       room_type_id = #{record.roomTypeId,jdbcType=INTEGER},
-      describe = #{record.describe,jdbcType=VARCHAR}
+      descriptions = #{record.descriptions,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -181,8 +182,8 @@
       <if test="roomTypeId != null" >
         room_type_id = #{roomTypeId,jdbcType=INTEGER},
       </if>
-      <if test="describe != null" >
-        describe = #{describe,jdbcType=VARCHAR},
+      <if test="descriptions != null" >
+        descriptions = #{descriptions,jdbcType=VARCHAR},
       </if>
     </set>
     where room_id = #{roomId,jdbcType=INTEGER}
@@ -191,7 +192,7 @@
     update room
     set room_status_id = #{roomStatusId,jdbcType=INTEGER},
       room_type_id = #{roomTypeId,jdbcType=INTEGER},
-      describe = #{describe,jdbcType=VARCHAR}
+      descriptions = #{descriptions,jdbcType=VARCHAR}
     where room_id = #{roomId,jdbcType=INTEGER}
   </update>
 </mapper>
