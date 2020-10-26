@@ -6,6 +6,7 @@
     <result column="order_id" property="orderId" jdbcType="INTEGER" />
     <result column="room_id" property="roomId" jdbcType="INTEGER" />
     <result column="price" property="price" jdbcType="DOUBLE" />
+    <association column="room_id" property="room" select="com.hotel.mapper.RoomMapper.selectByPrimaryKey"></association>
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >

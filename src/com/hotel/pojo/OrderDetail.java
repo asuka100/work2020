@@ -8,6 +8,8 @@ public class OrderDetail {
     private Integer roomId;
 
     private Double price;
+    
+    private Room room;
 
     public Integer getId() {
         return id;
@@ -40,4 +42,12 @@ public class OrderDetail {
     public void setPrice(Double price) {
         this.price = price;
     }
+
+	public Room getRoom() {
+		return room;
+	}
+
+	public void setRoom(Room room) {
+		this.room = room;
+	}
 }
