@@ -12,8 +12,21 @@ public class MaintainList {
     private String status;
     
     private Employee employee;
+    
+    private String statusName;
+    
+    
 
-    public Integer getMaintainId() {
+   
+	public String getStatusName() {
+		return statusName;
+	}
+
+	public void setStatusName(String statusName) {
+		this.statusName = statusName;
+	}
+
+	public Integer getMaintainId() {
         return maintainId;
     }
 

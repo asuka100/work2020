@@ -55,14 +55,18 @@
     </div>
 
    
-    <div class="layui-form-item">
+ 
+  <div class="layui-form-item">
         <label class="layui-form-label">维修状态</label>
-        <div class="layui-input-block">
-            <input type="radio" name="status" value="未完成" title="未完成" checked>
-            <input type="radio" name="status" value="已完成" title="已完成" >
+        <div class="layui-input-inline">
+            <select name="status" lay-verify="required">
+
+                <option value="">请选择维修状态</option>
+                <option value="2">维护</option>
+                <option value="3">未清扫</option>
+            </select>
         </div>
     </div>
-
 
 
     <div class="layui-form-item">
@@ -94,7 +98,7 @@
 
                 for(var i=0;i<data['employeeList'].length; i++){
 
-                    $("#employeeIdList").append("<option value=\""+data['employeeList'][i].employeePositionId+"\">"+data['employeeList'][i].name+"</option>");
+                    $("#employeeIdList").append("<option value=\""+data['employeeList'][i].employeePositionId+"\">"+data['employeeList'][i].employeePosition.positionName+": "+data['employeeList'][i].name+"</option>");
 
                 }
                 form.render();
@@ -116,7 +120,7 @@
                     //
                     console.log(resp);
                    
-                    if(resp == 1){
+                    if(resp['result'] == 1){
                         layer.msg('添加维修项目成功');
                         //跳转列表页
                         setTimeout(reloadPage,1000);

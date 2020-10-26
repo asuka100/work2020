@@ -134,7 +134,7 @@
 							//跳转列表页
 							setTimeout(reloadPage, 1000);
 						}
-						if (resp == 2) {
+						else if (resp == 2) {
 							layer.msg('该房间号已存在');
 							
 						}

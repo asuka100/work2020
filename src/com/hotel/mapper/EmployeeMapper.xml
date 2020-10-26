@@ -268,5 +268,9 @@
   	from employee e, employee_position p
   	where e.employee_position_id = p.employee_position_id
   </select>
-  
+  <select id="findAllMaintainEmployee" resultMap="BaseResultMap">
+  	select e.*, p.position_name
+  	from employee e, employee_position p
+  	where e.employee_position_id = p.employee_position_id and e.employee_position_id>=3
+  </select>
 </mapper>

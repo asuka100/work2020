@@ -17,5 +17,11 @@ public interface RoomService {
 
 	int update(Room room);
 
+	List<Room> findByMaintainId(Integer roomId);
+
+
+
+	
+
 	
 }

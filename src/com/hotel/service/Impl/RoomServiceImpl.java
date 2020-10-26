@@ -52,4 +52,16 @@ public class RoomServiceImpl implements RoomService {
 		return mapper.updateByPrimaryKey(room);
 	}
 
+	@Override
+	public List<Room> findByMaintainId(Integer roomId) {
+		RoomExample example = new RoomExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andRoomStatusIdEqualTo(1).andRoomIdEqualTo(roomId);
+		return mapper.selectByExample(example);
+	}
+
+	
+
+	
+
 }

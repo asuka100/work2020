@@ -48,11 +48,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public List<Employee> findAllMaintainEmployee() {
 		
-		EmployeeExample example = new EmployeeExample();
-		Criteria criteria = example.createCriteria();
-		criteria.andEmployeePositionIdGreaterThanOrEqualTo(3);
 		
-		return mapper.selectByExample(example);
+		
+		return mapper.findAllMaintainEmployee();
 	}
 
 }
