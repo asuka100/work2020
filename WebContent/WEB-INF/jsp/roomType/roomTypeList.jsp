@@ -93,7 +93,8 @@
                     {field: 'roomTypeId', title: '类型编号', width:120, sort: true, fixed: 'left'},
                     {field: 'typeName', title: '类型名称', width:200 ,sort: true, },
                     {field: 'price', title: '价格', width:200 ,sort: true, },
-                    {field: 'decript', title: '房间类型描述', width:200 ,sort: true, }
+                    {field: 'descriptions', title: '房间类型描述', width:200 ,sort: true, },
+                    {fixed: 'right',title: '操作', width: 185, align:'center', toolbar: '#barDemo'}
                   
                 ]]
             });
@@ -170,7 +171,7 @@
         var gInputs = [
             {title:"类型名称", name:"typeName", type:"text"},
             {title:"价格", name:"price", type:"text"},
-            {title:"类型描述", name:"decript", type:"text"},
+            {title:"类型描述", name:"descriptions", type:"text"},
             {name:"roomTypeId", type:"hide"}
         ];
         return gInputs;
@@ -186,7 +187,7 @@
                 data:{id:roomTypeId},
                 dataType:'json',
                 success:function( resp ){
-                    if( resp['result']=='success' ){
+                    if( resp['roomType']!=null ){
                         console.log( resp['roomType'] );
                         onRecvMsg(resp);
 
@@ -234,7 +235,7 @@
 
     //{ps}你要获取的项目
     var items = [
-        "id", "typeName"
+        "roomTypeId", "typeName","price","descriptions"
     ];
 
     //{ps} 抓取表单数据
@@ -248,9 +249,9 @@
     }
 
     /*
-     *  函数:    saveUser
+     *  函数:    udateRoomType
      *  提交数据, 通过 ajax 对象。
-     *	提交地址: /User/saveUser
+     *	提交地址: /roomType/udateRoomType
      */
     function udateRoomType(){
         //{1}获取表单数据。
@@ -288,13 +289,15 @@
 
     function delRoomType(_id) {
         $.ajax({
-            url: '${ctxPath}/roomType/delete'+_id,
+            url: '${ctxPath}/roomType/delete/'+_id,
             data: {'id':_id},
             success: function (data) {
                 if(data == 1){
                     layer.closeAll();
                     layer.msg('删除成功');
                     setTimeout(reloadPage,1000);
+                }else{
+                	layer.msg('删除失败');
                 }
 
             }

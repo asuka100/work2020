@@ -60,7 +60,7 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">房间描述</label>
 			<div class="layui-input-inline">
-				<input type="text" name="describe" required lay-verify="required"
+				<input type="text" name="descriptions" required lay-verify="required"
 					placeholder="请输入房间描述" autocomplete="off" class="layui-input">
 			</div>
 		</div>
@@ -129,11 +129,16 @@
 						//
 						console.log(resp);
 					
-						if (errorCode == 1) {
+						if (resp == 1) {
 							layer.msg('添加房间成功');
 							//跳转列表页
 							setTimeout(reloadPage, 1000);
-						}else{
+						}
+						if (resp == 2) {
+							layer.msg('该房间号已存在');
+							
+						}
+						else{
 							layer.msg('添加房间失败');
 						}
 						

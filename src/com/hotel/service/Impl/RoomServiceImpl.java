@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.hotel.mapper.RoomMapper;
 import com.hotel.pojo.Room;
+import com.hotel.pojo.RoomExample;
+import com.hotel.pojo.RoomExample.Criteria;
 import com.hotel.service.RoomService;
 
 @Service
@@ -33,6 +35,21 @@ public class RoomServiceImpl implements RoomService {
 	@Override
 	public int deleteById(int id) {
 		return mapper.deleteByPrimaryKey(id);
+	}
+
+	@Override
+	public List<Room> selectByRoomTypeId(int id) {
+		
+		RoomExample example = new RoomExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andRoomTypeIdEqualTo(id);
+		return mapper.selectByExample(example);
+	}
+
+	@Override
+	public int update(Room room) {
+	
+		return mapper.updateByPrimaryKey(room);
 	}
 
 }

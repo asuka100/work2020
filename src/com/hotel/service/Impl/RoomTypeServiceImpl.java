@@ -15,14 +15,14 @@ public class RoomTypeServiceImpl implements RoomTypeService {
 
 	@Autowired
 	private RoomTypeMapper mapper;
-	
+
 	/**
 	 * 增加房间类型
 	 */
 	@Override
 	public int insertRoomType(RoomType type) {
-		if(this.selectByTypeName(type.getTypeName())!=null) {
-			//已存在同名的房间类型
+		if (this.selectByTypeName(type.getTypeName()) != null) {
+			// 已存在同名的房间类型
 			return 0;
 		}
 		return mapper.insertSelective(type);
@@ -45,14 +45,14 @@ public class RoomTypeServiceImpl implements RoomTypeService {
 
 	@Override
 	public RoomType selectByTypeName(String typeName) {
-		if(typeName==null) {
+		if (typeName == null) {
 			return null;
 		}
 		RoomTypeExample example = new RoomTypeExample();
 		example.createCriteria().andTypeNameEqualTo(typeName);
 		List<RoomType> list = mapper.selectByExample(example);
-		if(list.size()==0) {
-			//未查找到同名的房间类型
+		if (list.size() == 0) {
+			// 未查找到同名的房间类型
 			return null;
 		}
 		return list.get(0);
@@ -63,15 +63,17 @@ public class RoomTypeServiceImpl implements RoomTypeService {
 	 */
 	@Override
 	public int update(RoomType roomType) {
-		//参数不为空，数据库中已有相同id的记录，没有相同类型名称的记录
-		if(roomType==null||roomType.getRoomTypeId()==null||roomType.getTypeName()==null
-				||mapper.selectByPrimaryKey(roomType.getRoomTypeId())!=null
-				||this.selectByTypeName(roomType.getTypeName())==null) {
+		// 参数不为空，数据库中已有相同id的记录，没有相同类型名称的记录
+		/*
+		 * if(roomType==null||roomType.getRoomTypeId()==null||roomType.getTypeName()==
+		 * null ||mapper.selectByPrimaryKey(roomType.getRoomTypeId())!=null
+		 * ||this.selectByTypeName(roomType.getTypeName())==null) { return 0; }
+		 */
+		RoomType rt = selectByTypeName(roomType.getTypeName());
+		if (rt != null && rt.getRoomTypeId() != roomType.getRoomTypeId()) {
 			return 0;
 		}
 		return mapper.updateByPrimaryKey(roomType);
 	}
 
-	
-	
 }

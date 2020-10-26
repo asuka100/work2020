@@ -45,7 +45,7 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">房间类型描述</label>
 			<div class="layui-input-inline">
-				<input type="text" name="decript" required lay-verify="required"
+				<input type="text" name="descriptions" required lay-verify="required"
 					placeholder="请输入房间类型描述" autocomplete="off" class="layui-input">
 			</div>
 		</div>

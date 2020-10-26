@@ -12,4 +12,10 @@ public interface RoomService {
 	Room selectById(int id);
 	
 	int deleteById(int id);
+
+	List<Room> selectByRoomTypeId(int id);
+
+	int update(Room room);
+
+	
 }

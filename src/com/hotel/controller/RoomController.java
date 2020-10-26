@@ -45,6 +45,9 @@ public class RoomController {
 		if(room==null||room.getRoomId()==null||room.getRoomStatusId()==null||room.getRoomTypeId()==null) {
 			return 0;
 		}
+		if(service.selectById(room.getRoomId())!=null) {
+			return 2;
+		}
 		System.out.println(room);
 		return service.insert(room);
 	}
@@ -62,18 +65,12 @@ public class RoomController {
 		System.out.println(list);
 		PageInfo info = new PageInfo<>(list);
 		long total = info.getTotal();
-		JSONArray jsonArray = new JSONArray();
-		if(list!=null) {
-			jsonArray = new JSONArray();
-			for(Room c : list) {
-				jsonArray.add(c);
-			}
-		}
+	
 		JSONObject jsObj = new JSONObject();
 		jsObj.put("code", "0");
 		jsObj.put("msg","");
 		jsObj.put("count",total);
-		jsObj.put("data",jsonArray);
+		jsObj.put("data",list);
 		
 		return jsObj;
 	}
@@ -83,9 +80,15 @@ public class RoomController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/select/id")
-	public Room selectById(int id) {
-		return service.selectById(id);
+	@RequestMapping(value = "/select")
+	public Object selectById(int id) {
+		
+		Room room = service.selectById(id);
+		JSONObject jsObj = new JSONObject();
+		System.out.println(room);
+		jsObj.put("room",room);
+		
+		return jsObj;
 	}
 	
 	/**
@@ -96,6 +99,16 @@ public class RoomController {
 	@RequestMapping(value = "/delete/id")
 	public int deleteById(int id) {
 		return service.deleteById(id);
+	}
+	
+	@RequestMapping("/update")
+	@ResponseBody
+	public int update(Room room) {
+		if (room.getRoomStatusId()==0||room.getRoomTypeId()==0) {
+			return 0;
+		}
+		int result = service.update(room);
+		return result;
 	}
 	
 }

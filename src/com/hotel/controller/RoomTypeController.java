@@ -13,7 +13,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.hotel.pojo.Employee;
+import com.hotel.pojo.Room;
 import com.hotel.pojo.RoomType;
+import com.hotel.service.RoomService;
 import com.hotel.service.RoomTypeService;
 
 @Controller
@@ -22,6 +24,9 @@ public class RoomTypeController {
 
 	@Autowired
 	private RoomTypeService service;
+	
+	@Autowired
+	private RoomService roomService;
 	
 	@RequestMapping("/viewAddRoomType")
 	public String viewAddRoomType() {
@@ -47,7 +52,12 @@ public class RoomTypeController {
 	@ResponseBody
 	@RequestMapping(value = "/delete/{id}")
 	public int deleteById(@PathVariable int id) {
-		int result = service.deleteById(id);
+		int result = 0;
+		List<Room> list = roomService.selectByRoomTypeId(id);
+		if(list.size() == 0) {
+			result = service.deleteById(id);
+		}
+		
 		return result;
 	}
 	
@@ -82,9 +92,12 @@ public class RoomTypeController {
 	
 	@RequestMapping(value = "/select/{id}")
 	@ResponseBody
-	public String selectById(@PathVariable int id) {
+	public Object selectById(@PathVariable int id) {
 		RoomType roomType = service.selectById(id);
-		return JSON.toJSONString(roomType);
+		JSONObject jsObj = new JSONObject();
+		jsObj.put("roomType",roomType);	
+
+		return jsObj;
 	}
 	
 	@ResponseBody
