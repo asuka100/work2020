@@ -15,6 +15,7 @@ import com.hotel.pojo.Client;
 import com.hotel.pojo.Order;
 import com.hotel.pojo.OrderDetail;
 import com.hotel.pojo.Room;
+import com.hotel.service.ClientService;
 import com.hotel.service.OrderDetailService;
 import com.hotel.service.OrderService;
 
@@ -27,6 +28,9 @@ public class OrderController {
 	
 	@Autowired
 	private OrderDetailService orderDetailService;
+	
+	@Autowired
+	private ClientService clientService;
 
 	/**
 	 * 创建订单
@@ -69,10 +73,35 @@ public class OrderController {
 		return order;
 	}
 	
+	/**
+	 * 创建客户信息，并且创建订单
+	 * @param client
+	 */
 	@RequestMapping(value = "/create2")
-	public void createOrder(Client client, Room room) {
+	@ResponseBody
+	public Order createOrder(Client client, int employeeId) {
+		if("".equals(client.getCardId()) ) {
+			return null;
+		}
+		int result = clientService.insert(client);
+		if(result==0) {
+			return null;
+		}
+		client = clientService.selectByCardId(client.getCardId()).get(0);
 		
+		Order order = new Order();
+		order.setClientId(client.getClientId());
+		order.setCreateEmployeeId(employeeId);
+		order.setStatus("创建");
+		order.setDate(new Date());
+		order.setTotalPrice(0.0);
 		
+		result = orderService.createOrder(order);
+		if(result!=0) {
+			List<Order> list = orderService.selectAll();
+			return list.get(list.size()-1);//返回最新插入的记录
+		}
+		return null;
 	}
 	//更新订单
 	@RequestMapping(value = "/update/orderId")
