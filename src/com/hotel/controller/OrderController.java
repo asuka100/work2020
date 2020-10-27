@@ -105,11 +105,27 @@ public class OrderController {
 		if("".equals(client.getCardId()) ) {
 			return null;
 		}
-		int result = clientService.insert(client);
-		if(result==0) {
-			return null;
+		int result = 0;
+		List<Client> cli = clientService.selectByCardId(client.getCardId());
+		if(cli.size()<=0) {
+			//数据库中没有该客户，新建客户信息
+			result = clientService.insert(client);
+			if(result==0) {
+				return null;
+			}
+			client = clientService.selectByCardId(client.getCardId()).get(0);
 		}
-		client = clientService.selectByCardId(client.getCardId()).get(0);
+		else if(!cli.get(0).equals(client)) {
+			if("".equals(client.getName())) {
+				client.setName(cli.get(0).getName());
+			}
+			if("".equals(client.getPhone())) {
+				client.setPhone(cli.get(0).getPhone());
+			}
+			client.setClientId(cli.get(0).getClientId());
+			clientService.updateById(client);
+		}
+		
 		System.out.println(str+"     "+client.getClientId());
 		Orders order = new Orders();
 		order.setClientId(client.getClientId());
@@ -160,6 +176,7 @@ public class OrderController {
 	
 	//删除订单
 	@RequestMapping(value = "/delete/orderId")
+	@ResponseBody
 	public int deleteByOrderId(int orderId) {
 		if(orderId==0) {
 			return 0;

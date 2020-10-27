@@ -24,12 +24,15 @@
     	</div>
 	</div>
 	
+	 
 	<div class="layui-form-item">
-		<label class="layui-form-label">身份证号：</label>
-	    <div class="layui-input-block">
-	      <input type="text" name="cardId" required lay-verify="identity" placeholder="请输入客户的身份证号" autocomplete="off" class="layui-input">
-    	</div>
-	</div>
+    <label class="layui-form-label">验证身份证</label>
+    <div class="layui-input-block">
+      <input type="text" name="cardId" lay-verify="required" placeholder="请输入客户的身份证号" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+  
+
 	
 	<div class="layui-form-item">
 		<label class="layui-form-label">电话号码：</label>
@@ -49,7 +52,7 @@
 	 
 	<div class="layui-form-item">
     <div class="layui-input-block">
-      <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1" id="bbbb">预定</button>
+      <button type="submit" class="layui-btn"  lay-filter="demo1" >预定</button>
       <button type="reset" class="layui-btn layui-btn-primary">重置</button>
     </div>
   </div>
@@ -98,10 +101,7 @@
 		})
 	});
 	
-	$(function(){
-		$('#bbbb').val(roomId);
-		
-	})
+	
 	
 </script>
 </body>
