@@ -33,7 +33,7 @@
 </head>
 <body>
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-    <legend>入住</legend>
+    <legend>办理入住</legend>
 </fieldset>
 
 <table class="layui-hide" id="demo" lay-filter="test"></table>

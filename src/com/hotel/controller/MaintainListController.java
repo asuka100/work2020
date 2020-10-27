@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.hotel.pojo.Employee;
 import com.hotel.pojo.MaintainList;
 import com.hotel.pojo.Room;
 import com.hotel.pojo.RoomStatus;
+import com.hotel.service.EmployeeService;
 import com.hotel.service.MaintainListService;
 import com.hotel.service.RoomService;
 import com.hotel.service.RoomStatusService;
@@ -27,6 +29,8 @@ public class MaintainListController {
 	private RoomService roomService;
 	@Autowired
 	private RoomStatusService statusService;
+	@Autowired
+	private EmployeeService employeeService;
 	
 	@RequestMapping("/viewAddMaintain")
 	public String viewAddMaintain() {
@@ -69,6 +73,13 @@ public class MaintainListController {
 	@RequestMapping(value = "/select/all")
 	public Object selectAll(int page, int limit) {
 		List<MaintainList> list = service.selectAll();
+//		System.out.println(list.size());
+//		for(int i=0; i<list.size(); i++) {
+//			int employeeId = Integer.valueOf(list.get(i).getEmployeeIdList());
+//			Employee employee = employeeService.selectById(employeeId);
+//			list.get(i).setEmployee(employee);
+//		}
+		
 		for (MaintainList maintainList : list) {
 			maintainList.setStatusName(statusService.selectById(Integer.valueOf(maintainList.getStatus())).getStatusName());
 		}
@@ -89,7 +100,10 @@ public class MaintainListController {
 	@RequestMapping(value = "/select/id")
 	public Object selectById(int id) {
 		 MaintainList maintain = service.selectById(id);
-
+//		 int employeeId = Integer.valueOf(maintain.getEmployeeIdList());
+//		 Employee employee = employeeService.selectById(employeeId);
+//		 maintain.setEmployee(employee);
+		 
 		JSONObject jsObj = new JSONObject();
 		if(maintain==null) {
 			jsObj.put("result","fail");

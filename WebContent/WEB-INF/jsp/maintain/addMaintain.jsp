@@ -98,7 +98,7 @@
 
                 for(var i=0;i<data['employeeList'].length; i++){
 
-                    $("#employeeIdList").append("<option value=\""+data['employeeList'][i].employeePositionId+"\">"+data['employeeList'][i].employeePosition.positionName+": "+data['employeeList'][i].name+"</option>");
+                    $("#employeeIdList").append("<option value=\""+data['employeeList'][i].employeeId+"\">"+data['employeeList'][i].employeePosition.positionName+": "+data['employeeList'][i].name+"</option>");
 
                 }
                 form.render();

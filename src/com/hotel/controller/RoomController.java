@@ -164,7 +164,8 @@ public class RoomController {
 	@RequestMapping("/update")
 	@ResponseBody
 	public int update(Room room) {
-		if (room.getRoomStatusId()==0||room.getRoomTypeId()==0) {
+		
+		if (room.getRoomTypeId()==0) {
 			return 0;
 		}
 		int result = service.update(room);
