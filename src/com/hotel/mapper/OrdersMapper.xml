@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.hotel.mapper.OrderMapper" >
-  <resultMap id="BaseResultMap" type="com.hotel.pojo.Order" >
+<mapper namespace="com.hotel.mapper.OrdersMapper" >
+  <resultMap id="BaseResultMap" type="com.hotel.pojo.Orders" >
     <id column="order_id" property="orderId" jdbcType="INTEGER" />
     <result column="client_id" property="clientId" jdbcType="INTEGER" />
     <result column="create_employee_id" property="createEmployeeId" jdbcType="INTEGER" />
@@ -10,12 +10,11 @@
     <result column="status" property="status" jdbcType="VARCHAR" />
     <result column="total_price" property="totalPrice" jdbcType="DOUBLE" />
     <result column="date" property="date" jdbcType="TIMESTAMP" />
-    <association column="client_id" property="client" select="com.hotel.mapper.ClientMapper.selectByPrimaryKey" ></association>
-    <association column="create_employee_id" property="create_employee" select="com.hotel.mapper.EmployeeMapper.selectByPrimaryKey"></association>
-    <association column="check_employee_id" property="check_employee" select="com.hotel.mapper.EmployeeMapper.selectByPrimaryKey" ></association>
-    <association column="pay_employee_id" property="pay_employee" select="com.hotel.mapper.EmployeeMapper.selectByPrimaryKey" ></association>
-    <association column="order_id" property="orderDetail" select="com.hotel.mapper.OrderDetailMapper.selectByOrderId"></association>
-    
+    <association column="client_id" property="client" select="com.hotel.mapper.ClientMapper.selectByPrimaryKey"></association>
+    <association column="create_employee_id" property="createEmployee" select="com.hotel.mapper.EmployeeMapper.selectByPrimaryKey"></association>
+    <association column="check_employee_id" property="checkEmployee" select="com.hotel.mapper.EmployeeMapper.selectByPrimaryKey"></association>
+    <association column="pay_employee_id" property="payEmployee" select="com.hotel.mapper.EmployeeMapper.selectByPrimaryKey"></association>
+    <association column="order_id" property="orderDetail" select="com.hotel.mapper.OrderDetailMapper.selectByOrderId" ></association>
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -79,13 +78,13 @@
     order_id, client_id, create_employee_id, check_employee_id, pay_employee_id, status, 
     total_price, date
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hotel.pojo.OrderExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hotel.pojo.OrdersExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from order
+    from orders
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -96,29 +95,29 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from order
+    from orders
     where order_id = #{orderId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from order
+    delete from orders
     where order_id = #{orderId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.hotel.pojo.OrderExample" >
-    delete from order
+  <delete id="deleteByExample" parameterType="com.hotel.pojo.OrdersExample" >
+    delete from orders
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.hotel.pojo.Order" >
-    insert into order (order_id, client_id, create_employee_id, 
+  <insert id="insert" parameterType="com.hotel.pojo.Orders" >
+    insert into orders (order_id, client_id, create_employee_id, 
       check_employee_id, pay_employee_id, status, 
       total_price, date)
     values (#{orderId,jdbcType=INTEGER}, #{clientId,jdbcType=INTEGER}, #{createEmployeeId,jdbcType=INTEGER}, 
       #{checkEmployeeId,jdbcType=INTEGER}, #{payEmployeeId,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, 
       #{totalPrice,jdbcType=DOUBLE}, #{date,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.hotel.pojo.Order" >
-    insert into order
+  <insert id="insertSelective" parameterType="com.hotel.pojo.Orders" >
+    insert into orders
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="orderId != null" >
         order_id,
@@ -172,14 +171,14 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.hotel.pojo.OrderExample" resultType="java.lang.Integer" >
-    select count(*) from order
+  <select id="countByExample" parameterType="com.hotel.pojo.OrdersExample" resultType="java.lang.Integer" >
+    select count(*) from orders
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update order
+    update orders
     <set >
       <if test="record.orderId != null" >
         order_id = #{record.orderId,jdbcType=INTEGER},
@@ -211,7 +210,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update order
+    update orders
     set order_id = #{record.orderId,jdbcType=INTEGER},
       client_id = #{record.clientId,jdbcType=INTEGER},
       create_employee_id = #{record.createEmployeeId,jdbcType=INTEGER},
@@ -224,8 +223,8 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hotel.pojo.Order" >
-    update order
+  <update id="updateByPrimaryKeySelective" parameterType="com.hotel.pojo.Orders" >
+    update orders
     <set >
       <if test="clientId != null" >
         client_id = #{clientId,jdbcType=INTEGER},
@@ -251,8 +250,8 @@
     </set>
     where order_id = #{orderId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.hotel.pojo.Order" >
-    update order
+  <update id="updateByPrimaryKey" parameterType="com.hotel.pojo.Orders" >
+    update orders
     set client_id = #{clientId,jdbcType=INTEGER},
       create_employee_id = #{createEmployeeId,jdbcType=INTEGER},
       check_employee_id = #{checkEmployeeId,jdbcType=INTEGER},

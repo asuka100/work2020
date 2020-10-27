@@ -68,8 +68,21 @@
 	
 	console.log(22333)
 	
-	$('form-recover').submit(function(){
-		
+	$('#form-recover').submit(function(){
+		console.log("表单提交")
+		$.ajax({
+			async : false, 
+			type:"POST",
+			url: '${ctxPath}/order/create2',
+			data: $('#form-recover').serialize(),
+			success: function(){
+				console.log("recover,success");
+				$.ajax({
+					async : false, 
+					
+				})
+			}
+		})
 	});
 	
 	

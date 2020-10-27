@@ -2,23 +2,23 @@ package com.hotel.service;
 
 import java.util.List;
 
-import com.hotel.pojo.Order;
+import com.hotel.pojo.Orders;
 
 public interface OrderService {
-	int createOrder(Order order);
+	int createOrders(Orders order);
 	
-	int updateByOrderId(Order order);
+	int updateByOrdersId(Orders order);
 	
-	int deleteByOrderId(int orderId);
+	int deleteByOrdersId(int orderId);
 	
-	List<Order> selectAll();
+	List<Orders> selectAll();
 	
-	Order selectById(int orderId);
+	Orders selectById(int orderId);
 	
-	List<Order> selectByClientId(int clientId);
+	List<Orders> selectByClientId(int clientId);
 	
-	List<Order> selectByEmployeeId(int employeeId);
+	List<Orders> selectByEmployeeId(int employeeId);
 	
-	List<Order> selectByStatus(String Status);
+	List<Orders> selectByStatus(String Status);
 	
 }

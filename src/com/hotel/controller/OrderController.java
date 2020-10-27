@@ -12,7 +12,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.hotel.pojo.Client;
-import com.hotel.pojo.Order;
+import com.hotel.pojo.Orders;
 import com.hotel.pojo.OrderDetail;
 import com.hotel.pojo.Room;
 import com.hotel.pojo.RoomStatus;
@@ -57,8 +57,8 @@ public class OrderController {
 	 */
 	@RequestMapping(value = "/create")
 	@ResponseBody
-	public Order createOrder(int clientId,int employeeId,List<Room> rooms) {
-		Order order = new Order();
+	public Orders createOrder(int clientId,int employeeId,List<Room> rooms) {
+		Orders order = new Orders();
 		order.setClientId(clientId);
 		order.setCreateEmployeeId(employeeId);
 		order.setStatus("创建");
@@ -69,12 +69,12 @@ public class OrderController {
 		order.setTotalPrice(totalPrice);
 		order.setDate(new Date());
 		
-		int result = orderService.createOrder(order);
+		int result = orderService.createOrders(order);
 		if(result==0) {
 			return null;
 		}
 		//获取完整的order
-		List<Order> list_order = orderService.selectAll();
+		List<Orders> list_order = orderService.selectAll();
 		order = list_order.get(list_order.size()-1);
 		
 		OrderDetail tempDetail = new OrderDetail();
@@ -95,7 +95,8 @@ public class OrderController {
 	 */
 	@RequestMapping(value = "/create2")
 	@ResponseBody
-	public Order createOrder(Client client, int employeeId) {
+	public Orders createOrder(Client client, int employeeId) {
+		String str = client.getName()+" "+client.getPhone()+"  "+client.getSex()+"  "+ client.getCardId()+"  "+employeeId;
 		if("".equals(client.getCardId()) ) {
 			return null;
 		}
@@ -104,17 +105,17 @@ public class OrderController {
 			return null;
 		}
 		client = clientService.selectByCardId(client.getCardId()).get(0);
-		
-		Order order = new Order();
+		System.out.println(str+"     "+client.getClientId());
+		Orders order = new Orders();
 		order.setClientId(client.getClientId());
 		order.setCreateEmployeeId(employeeId);
 		order.setStatus("创建");
 		order.setDate(new Date());
 		order.setTotalPrice(0.0);
 		
-		result = orderService.createOrder(order);
+		result = orderService.createOrders(order);
 		if(result!=0) {
-			List<Order> list = orderService.selectAll();
+			List<Orders> list = orderService.selectAll();
 			return list.get(list.size()-1);//返回最新插入的记录
 		}
 		return null;
@@ -122,14 +123,14 @@ public class OrderController {
 	//更新订单
 	@RequestMapping(value = "/update/orderId")
 	@ResponseBody
-	public int updateOrderById(Order order) {
+	public int updateOrderById(Orders order) {
 		if(order.getOrderId()==null) {
 			return 0;
 		}
-		int result = orderService.updateByOrderId(order);
+		int result = orderService.updateByOrdersId(order);
 		//如果是结账，需要把所有房间状态修改为“未清扫”
 		if(result!=0) {
-			Order temp = orderService.selectById(order.getOrderId());
+			Orders temp = orderService.selectById(order.getOrderId());
 			OrderDetail detail_list = temp.getOrderDetail();
 			if("结账".equals(order.getStatus())) {
 				Room room_temp = new Room();
@@ -158,8 +159,8 @@ public class OrderController {
 		if(orderId==0) {
 			return 0;
 		}
-		Order order = orderService.selectById(orderId);
-		int result = orderId==0 ? 0 : orderService.deleteByOrderId(orderId);
+		Orders order = orderService.selectById(orderId);
+		int result = orderId==0 ? 0 : orderService.deleteByOrdersId(orderId);
 		//如果订单删除成功，所有相关订单的房间状态均要修改
 		if(result!=0) {
 			int room_status_id = 0;
@@ -186,7 +187,7 @@ public class OrderController {
 	@RequestMapping(value = "/select/all")
 	@ResponseBody
 	public Object selectAllOrder(int page, int limit) {
-		List<Order> list = orderService.selectAll();
+		List<Orders> list = orderService.selectAll();
 		
 		PageHelper.startPage(page,limit);
 		PageInfo info = new PageInfo<>(list);
@@ -204,28 +205,28 @@ public class OrderController {
 	//查询订单
 	@RequestMapping(value = "/select/orderId")
 	@ResponseBody
-	public Order selectById(int orderId) {
+	public Orders selectById(int orderId) {
 		return orderService.selectById(orderId);
 	}
 	
 	@RequestMapping(value = "/select/clientId")
 	@ResponseBody
 	public Object selectByClientId(int clientId, int page, int limit) {
-		List<Order> list = orderService.selectByClientId(clientId);
+		List<Orders> list = orderService.selectByClientId(clientId);
 		return this.toJsonObject(page, limit, list);
 	}
 	
 	@RequestMapping(value = "/select/employteeId")
 	@ResponseBody
 	public Object selectByEmployeeId(int employeeId, int page, int limit) {
-		List<Order> list = orderService.selectByEmployeeId(employeeId);
+		List<Orders> list = orderService.selectByEmployeeId(employeeId);
 		return this.toJsonObject(page, limit, list);
 	}
 	
 	@RequestMapping(value = "/select/status")
 	@ResponseBody
 	public Object selectByStatus(String status, int page, int limit) {
-		List<Order> list = orderService.selectByStatus(status);
+		List<Orders> list = orderService.selectByStatus(status);
 		return this.toJsonObject(page, limit, list);
 	}
 	
@@ -242,9 +243,9 @@ public class OrderController {
 		detail.setPrice(price);
 		
 		//order正常修改之后再插入order_detail表
-		Order order = orderService.selectById(orderId);
+		Orders order = orderService.selectById(orderId);
 		order.setTotalPrice( order.getTotalPrice()+price );
-		int result = orderService.updateByOrderId(order);
+		int result = orderService.updateByOrdersId(order);
 		if(result==0) {
 			return 0;
 		}
@@ -271,9 +272,9 @@ public class OrderController {
 	public int decreaseOrderDetailById(int id) {
 		OrderDetail detail = orderDetailService.selectById(id);
 		
-		Order order = orderService.selectById(detail.getOrderId());
+		Orders order = orderService.selectById(detail.getOrderId());
 		order.setTotalPrice(order.getTotalPrice()-detail.getPrice());
-		int result = orderService.updateByOrderId(order);
+		int result = orderService.updateByOrdersId(order);
 		if(result==0) {
 			return 0;
 		}
@@ -313,7 +314,7 @@ public class OrderController {
 	}
 	
 	
-	private JSONObject toJsonObject(int page, int limit, List<Order> list) {
+	private JSONObject toJsonObject(int page, int limit, List<Orders> list) {
 		PageHelper.startPage(page,limit);
 		PageInfo info = new PageInfo<>(list);
 		long total = info.getTotal();
