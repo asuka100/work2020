@@ -78,6 +78,29 @@
 
             //{ps} 执行一个 table 实例
             var ran = Math.random();
+            function createTime(v){
+        		var date = new Date(v);
+        	    var y = date.getFullYear();
+        	    var m = date.getMonth()+1;
+        	    m = m<10?'0'+m:m;
+        	    var d = date.getDate();
+        	    d = d<10?("0"+d):d;
+        	    var h = date.getHours();
+        	    h = h<10?("0"+h):h;
+        	    var M = date.getMinutes();
+        	    M = M<10?("0"+M):M;
+        	    var str = y+"-"+m+"-"+d+" "+h+":"+M;
+        	    return str;
+        	}
+            
+            function showEmployeeName(employee){
+            	if(employee==null){
+            		return "无";
+            	}else{
+            		return employee['name'];
+            	}
+            	
+            }
             table.render({
                 elem: '#demo'
                 ,height: 530
@@ -88,14 +111,25 @@
                 ,cols: [[       //{ps} 表头
                   
                    
-                    {field: 'orderId', title: '订单编号', width:120, sort: true, fixed: 'left',align:'center'},
-                    {field: 'clientId', title: '客户编号', width:120, sort: true, fixed: 'left',align:'center'},
-                    {field: 'createEmployeeId', title: '创建订单员工编号', width:120, sort: true, fixed: 'left',align:'center'},
-                    {field: 'checkEmployeeId', title: '入住员工编号', width:120, sort: true, fixed: 'left',align:'center'},
-                    {field: 'payEmployeeId', title: '结账员工编号', width:120, sort: true, fixed: 'left',align:'center'},
-                    {field: 'status', title: '状态', width:250 ,sort: true},
-                    {field: 'totalPrice', title: '总价', width:120, sort: true, fixed: 'left',align:'center'},
-                    {field: 'date', title: '订单创建日期', width:120, sort: true, fixed: 'left',align:'center'},
+                    {field: 'orderId', title: '订单编号', width:100, sort: true,align:'center'},  
+                           
+
+                    {templet:'<div>{{d.client.name}}</div>',title: '客户名', width: 150, sort: true, align:'center'},
+                    {field:'createEmployee',title: '创建订单人员', width: 150, sort: true, align:'center',templet: function (row){
+                        return showEmployeeName(row.createEmployee);
+                    }}, 
+                    {field:'checkEmployee',title: '入住订单人员', width: 150, sort: true, align:'center',templet: function (row){
+                        return showEmployeeName(row.checkEmployee);
+                    }}, 
+                    {field:'payEmployee',title: '结账人员', width: 150, sort: true, align:'center',templet: function (row){
+                        return showEmployeeName(row.payEmployee);
+                    }}, 
+                
+                    {field: 'status', title: '状态', width:100 ,sort: true},
+                    {field: 'totalPrice', title: '总价', width:100, sort: true,align:'center'},
+                    {field: 'date', title: '订单创建日期', width:200, sort: true,align:'center',templet: function (row){
+                        return createTime(row.date);
+                    }},          
                  
                     {fixed: 'right',title: '操作', width: 185, align:'center', toolbar: '#barDemo'}
                 ]]
