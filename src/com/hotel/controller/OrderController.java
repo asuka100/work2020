@@ -168,7 +168,7 @@ public class OrderController {
 		if("入住".equals(order.getStatus())) {
 			order.setCheckEmployeeId(((Employee)session.getAttribute("employee")).getEmployeeId());
 		}
-		if("结账".equals(order.getStatus())) {
+		if("已结账".equals(order.getStatus())) {
 			order.setPayEmployeeId(((Employee)session.getAttribute("employee")).getEmployeeId());
 		}
 		
@@ -178,18 +178,18 @@ public class OrderController {
 		
 		
 		int result = orderService.updateByOrdersId(order);
-		//如果是结账，需要先房间状态修改为“空闲”
+		//如果是已结账，需要先房间状态修改为“空闲”
 		if(result!=0) {
 			Orders temp = orderService.selectById(order.getOrderId());
 			OrderDetail detail_list = temp.getOrderDetail();
-			if("结账".equals(order.getStatus())) {
+			if("已结账".equals(order.getStatus())) {
 				Room room_temp = new Room();
 				
 					room_temp.setRoomId(detail_list.getRoomId());
 					room_temp.setRoomStatusId(1);
 					roomService.update(room_temp);
 				
-			}//如果是结账，需要把所有房间状态修改为“入住中”
+			}//如果是已结账，需要把所有房间状态修改为“入住中”
 			else if("入住".equals(order.getStatus())) {
 				Room room_temp = new Room();
 				

@@ -284,7 +284,7 @@
                 dataType:'json',
                 success:function( resp ){
                     if( resp!=null){
-                      	resp['status'] = "结账";
+                      	resp['status'] = "已结账";
                     	console.log(resp);
                     	$.ajax({
                     		url:'${ctxPath}/order/update/orderId',

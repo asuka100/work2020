@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50648
 File Encoding         : 65001
 
-Date: 2020-10-28 03:58:50
+Date: 2020-10-28 04:14:26
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -26,7 +26,7 @@ CREATE TABLE `client` (
   `phone` varchar(11) DEFAULT NULL,
   `card_id` varchar(18) NOT NULL,
   PRIMARY KEY (`client_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of client
@@ -37,7 +37,8 @@ INSERT INTO `client` VALUES ('18', '诸葛亮', '男', '12345678911', '632223197
 INSERT INTO `client` VALUES ('19', '何炅', '男', '12345678910', '440782201001011234');
 INSERT INTO `client` VALUES ('20', '曹操', '男', '13245678912', '440782199501011234');
 INSERT INTO `client` VALUES ('21', '雷军', '男', '12345678910', '440785199001011234');
-INSERT INTO `client` VALUES ('22', '周生生', '男', '12345678910', '440782199901011234');
+INSERT INTO `client` VALUES ('22', '何鑫', '男', '12345678910', '440782199901011234');
+INSERT INTO `client` VALUES ('23', '金木', '男', '12345678910', '440782199502022222');
 
 -- ----------------------------
 -- Table structure for employee
@@ -174,15 +175,16 @@ CREATE TABLE `orders` (
   KEY `order_create_fk` (`create_employee_id`) USING BTREE,
   KEY `order_check_fk` (`check_employee_id`) USING BTREE,
   KEY `order_pay_fk` (`pay_employee_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of orders
 -- ----------------------------
-INSERT INTO `orders` VALUES ('39', '17', '18', '18', null, '入住', '99', '2020-10-28 03:52:45');
+INSERT INTO `orders` VALUES ('39', '17', '18', '18', '18', '已结账', '99', '2020-10-28 04:13:09');
 INSERT INTO `orders` VALUES ('40', '20', '18', '18', null, '入住', '10000', '2020-10-28 03:52:22');
 INSERT INTO `orders` VALUES ('41', '21', '18', '23', null, '入住', '99', '2020-10-28 03:56:08');
 INSERT INTO `orders` VALUES ('42', '22', '23', null, null, '创建', '138', '2020-10-28 03:55:47');
+INSERT INTO `orders` VALUES ('44', '23', '18', null, null, '创建', '99', '2020-10-28 04:12:48');
 
 -- ----------------------------
 -- Table structure for order_detail
@@ -197,7 +199,7 @@ CREATE TABLE `order_detail` (
   KEY `order_detail_room_fk` (`room_id`) USING BTREE,
   KEY `order_detail_order_fk` (`order_id`) USING BTREE,
   CONSTRAINT `order_detail_room_fk` FOREIGN KEY (`room_id`) REFERENCES `room` (`room_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of order_detail
@@ -206,6 +208,7 @@ INSERT INTO `order_detail` VALUES ('15', '39', '101', '99');
 INSERT INTO `order_detail` VALUES ('16', '40', '303', '10000');
 INSERT INTO `order_detail` VALUES ('17', '41', '201', '99');
 INSERT INTO `order_detail` VALUES ('18', '42', '106', '138');
+INSERT INTO `order_detail` VALUES ('20', '44', '102', '99');
 
 -- ----------------------------
 -- Table structure for position_menuitem
@@ -241,8 +244,8 @@ CREATE TABLE `room` (
 -- ----------------------------
 -- Records of room
 -- ----------------------------
-INSERT INTO `room` VALUES ('101', '4', '1', '无1');
-INSERT INTO `room` VALUES ('102', '1', '1', '无2');
+INSERT INTO `room` VALUES ('101', '1', '1', '无1');
+INSERT INTO `room` VALUES ('102', '5', '1', '无2');
 INSERT INTO `room` VALUES ('103', '1', '1', '无');
 INSERT INTO `room` VALUES ('105', '1', '2', '双人房');
 INSERT INTO `room` VALUES ('106', '5', '2', '双人房');
