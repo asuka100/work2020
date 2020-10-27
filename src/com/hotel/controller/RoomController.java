@@ -42,7 +42,7 @@ public class RoomController {
 		
 		model.addAttribute("list",list);
 		System.out.println(list);
-		return "showRoomStatus";
+		return "/WEB-INF/jsp/roomStatus/showRoomStatus";
 	}
 	
 	/**
