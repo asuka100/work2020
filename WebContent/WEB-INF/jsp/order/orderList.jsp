@@ -275,16 +275,16 @@
 
 
 
-    function editRoom( roomId ){
+    function editOrder( orderId ){
         $.ajax(
             {
-                url:'${ctxPath}/room/select', /* 数据接口 */
+                url:'${ctxPath}/order/select/orderId', /* 数据接口 */
                 type:'post',
-                data:{id:roomId},
+                data:{orderId:orderId},
                 dataType:'json',
                 success:function( resp ){
-                    if( resp['room']!=null){
-                        console.log( resp['room'] );
+                    if( resp!=null){
+                        console.log( resp['orderDetail']+"------" );
                         getTypeData();
                         getStatusData();
                       
@@ -304,11 +304,11 @@
         //{ps} 生成表格 HTML
         var input = getInputs();
 
-        var HTML = makeTable( input, json['room'] );
+        var HTML = makeTable( input, json['orderDetail'] );
         //{ps} 弹出一个对话框。
         layer.open({
             type: 1
-            ,title: '编辑房间'      //显示标题栏
+            ,title: '查看订单明细'      //显示标题栏
             ,closeBtn: false
             ,area: ['450px','350px']
             ,shade: 0
