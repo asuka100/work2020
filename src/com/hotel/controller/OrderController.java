@@ -193,6 +193,9 @@ public class OrderController {
 				room_temp.setRoomId(detail_list.getRoomId());
 				room_temp.setRoomStatusId(room_status_id);
 				roomService.update(room_temp);
+			
+			int detailId = order.getOrderDetail().getId();
+			orderDetailService.deleteById(detailId);
 		}
 		
 		
