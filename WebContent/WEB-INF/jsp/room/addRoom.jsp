@@ -36,17 +36,7 @@
 		</div>
 
 
-		<div class="layui-form-item">
-			<label class="layui-form-label">状态</label>
-			<div class="layui-input-inline">
-				<select name="roomStatusId" lay-verify="required" id="roomStatusId">
-					<option value="">请选择状态</option>
-
-
-				</select>
-			</div>
-		</div>
-
+		
 		<div class="layui-form-item">
 			<label class="layui-form-label">房间类型</label>
 			<div class="layui-input-inline">

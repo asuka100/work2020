@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -34,6 +35,16 @@ public class RoomController {
 		return "/WEB-INF/jsp/room/roomList";
 	}
 	
+	@RequestMapping("/viewRoomStatus")
+	public String viewRoomStatus(Model model) {
+		
+		List<Room> list = service.selectAll();
+		
+		model.addAttribute("list",list);
+		System.out.println(list);
+		return "showRoomStatus";
+	}
+	
 	/**
 	 * 新建房间
 	 * @param room
@@ -42,13 +53,14 @@ public class RoomController {
 	@ResponseBody
 	@RequestMapping(value = "/create")
 	public int createRoom(Room room) {
-		if(room==null||room.getRoomId()==null||room.getRoomStatusId()==null||room.getRoomTypeId()==null) {
+		if(room==null||room.getRoomId()==null||room.getRoomTypeId()==null) {
 			return 0;
 		}
 		if(service.selectById(room.getRoomId())!=null) {
 			return 2;
 		}
 		System.out.println(room);
+		room.setRoomStatusId(1);
 		return service.insert(room);
 	}
 	
