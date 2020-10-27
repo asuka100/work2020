@@ -8,6 +8,7 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 <link rel="stylesheet" href="${ctxPath}/layui/css/layui.css?t=1554901098009" media="all">
+<script src="${ctxPath}/layui/layui.js" charset="utf-8"></script>
 <script src="${ctxPath}/jq_package/jquery-1.8.3.min.js"></script>
     <style>
         body{margin: 10px;}
@@ -41,11 +42,11 @@
 	 <div class="layui-form-item">
         <label class="layui-form-label">性别</label>
         <div class="layui-input-block">
-            <input type="radio" name="sex" value="男" title="男" checked>
-            <input type="radio" name="sex" value="女" title="女" >
+            <input type="radio" name="sex" lay-verify="identity" value="男" title="男" checked>
+            <input type="radio" name="sex" lay-verify="identity" value="女" title="女" >
         </div>
     </div>
-	
+	 
 	<div class="layui-form-item">
     <div class="layui-input-block">
       <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1" id="bbbb">预定</button>
@@ -59,14 +60,16 @@
 </form>
 
 <script type="text/javascript">
+	layui.use('form', function(){
+		  form.render();
+	});
+	
+	
 	
 	var roomId = sessionStorage.getItem("yudingRoomId");
 	$('#employeeIdInput').val(roomId);
 	
-	$(function(){
-		$('#bbbb').val(roomId);
-		
-	})
+	
 	
 	console.log(22333)
 	
@@ -96,6 +99,10 @@
 		})
 	});
 	
+	$(function(){
+		$('#bbbb').val(roomId);
+		
+	})
 	
 </script>
 </body>
