@@ -116,15 +116,61 @@ public class OrderController {
 		if(order.getOrderId()==null) {
 			return 0;
 		}
+		int result = orderService.updateByOrderId(order);
+		//如果是结账，需要把所有房间状态修改为“未清扫”
+		if(result!=0) {
+			Order temp = orderService.selectById(order.getOrderId());
+			List<OrderDetail> detail_list = temp.getOrderDetail();
+			if("结账".equals(order.getStatus())) {
+				Room room_temp = new Room();
+				for(OrderDetail detail : detail_list) {
+					room_temp.setRoomId(detail.getRoomId());
+					room_temp.setRoomStatusId(3);
+					roomService.update(room_temp);
+				}
+			}//如果是结账，需要把所有房间状态修改为“入住中”
+			else if("入住".equals(order.getStatus())) {
+				Room room_temp = new Room();
+				for(OrderDetail detail : detail_list) {
+					room_temp.setRoomId(detail.getRoomId());
+					room_temp.setRoomStatusId(4);
+					roomService.update(room_temp);
+				}
+			}
+		}
 
-		return orderService.updateByOrderId(order);
+		return result;
 	}
 	
 	//删除订单
 	@RequestMapping(value = "/delete/orderId")
 	public int deleteByOrderId(int orderId) {
-		return orderId==0 ? 0 : orderService.deleteByOrderId(orderId);
+		if(orderId==0) {
+			return 0;
+		}
+		Order order = orderService.selectById(orderId);
+		int result = orderId==0 ? 0 : orderService.deleteByOrderId(orderId);
+		//如果订单删除成功，所有相关订单的房间状态均要修改
+		if(result!=0) {
+			int room_status_id = 0;
+			//订单为创建状态，房态修改为空闲
+			if("创建".equals(order.getStatus())) {
+				room_status_id = 1;
+			}//订单为入住状态，房态修改为未清扫
+			else if("入住".equals(order.getStatus())) {
+				room_status_id = 3;
+			}
+			List<OrderDetail> detail_list = order.getOrderDetail();
+			Room room_temp = new Room();
+			for(OrderDetail detail : detail_list) {
+				room_temp.setRoomId(detail.getRoomId());
+				room_temp.setRoomStatusId(room_status_id);
+				roomService.update(room_temp);
+			}
+		}
 		
+		
+		return result;
 	}
 	//订单列表
 	@RequestMapping(value = "/select/all")
