@@ -45,6 +45,15 @@ public class RoomServiceImpl implements RoomService {
 		criteria.andRoomTypeIdEqualTo(id);
 		return mapper.selectByExample(example);
 	}
+	
+	@Override
+	public List<Room> selectByStatusId(int statusId) {
+		
+		RoomExample example = new RoomExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andRoomStatusIdEqualTo(statusId);
+		return mapper.selectByExample(example);
+	}
 
 	@Override
 	public int update(Room room) {

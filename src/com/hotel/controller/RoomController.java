@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -16,7 +17,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.hotel.pojo.Client;
 import com.hotel.pojo.Room;
+import com.hotel.pojo.RoomStatus;
 import com.hotel.service.RoomService;
+import com.hotel.service.RoomStatusService;
 
 @Controller
 @RequestMapping(value = "/room")
@@ -24,6 +27,9 @@ public class RoomController {
 
 	@Autowired
 	private RoomService service;
+	
+	@Autowired
+	private RoomStatusService statusService;
 	
 	@RequestMapping("/viewAddRoom")
 	public String viewAddRoom() {
@@ -86,6 +92,46 @@ public class RoomController {
 		
 		return jsObj;
 	}
+	//根据房间状态id查询房间列表
+	@ResponseBody
+	@RequestMapping(value = "/select/statusId/{statusId}")
+	public Object selectByStatusId(int page, int limit, @PathVariable int statusId) {
+		PageHelper.startPage(page,limit);
+		List<Room> list = service.selectByStatusId(statusId);
+		
+		System.out.println(list);
+		PageInfo info = new PageInfo<>(list);
+		long total = info.getTotal();
+	
+		JSONObject jsObj = new JSONObject();
+		jsObj.put("code", "0");
+		jsObj.put("msg","");
+		jsObj.put("count",total);
+		jsObj.put("data",list);
+		
+		return jsObj;
+	}
+	//根据房间状态名称查询房间列表
+	@ResponseBody
+	@RequestMapping(value = "/select/statusName/{statusName}")
+	public Object selectByStatusId(int page, int limit, @PathVariable String statusName) {
+		RoomStatus status = statusService.selectSatusByName(statusName);
+		
+		PageHelper.startPage(page,limit);
+		List<Room> list = service.selectByStatusId(status.getRoomStatusId());
+		
+		System.out.println(list);
+		PageInfo info = new PageInfo<>(list);
+		long total = info.getTotal();
+	
+		JSONObject jsObj = new JSONObject();
+		jsObj.put("code", "0");
+		jsObj.put("msg","");
+		jsObj.put("count",total);
+		jsObj.put("data",list);
+		
+		return jsObj;
+	}
 	
 	/**
 	 * 根据房间编号查询房间
@@ -102,6 +148,8 @@ public class RoomController {
 		
 		return jsObj;
 	}
+	
+	
 	
 	/**
 	 * 根据房间编号删除房间

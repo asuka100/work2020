@@ -14,6 +14,8 @@ public interface RoomService {
 	int deleteById(int id);
 
 	List<Room> selectByRoomTypeId(int id);
+	
+	List<Room> selectByStatusId(int statusId);
 
 	int update(Room room);
 
