@@ -47,6 +47,11 @@ public class OrderController {
 	public String createOrdyudingIframeerJsp() {
 		return "/WEB-INF/jsp/order/yudingIframe";
 	}
+	
+	@RequestMapping(value = "/orderList")
+	public String orderList() {
+		return "/WEB-INF/jsp/order/orderList";
+	}
 
 	/**
 	 * 创建订单

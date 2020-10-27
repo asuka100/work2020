@@ -99,7 +99,7 @@
 
     <div class="layui-footer">
         <!-- {Note} 底部固定区域 -->
-        ALECTER.COM --- 艾力特信息技术有限公司
+        NOSKILL.COM --- 有限技术技术有限公司
     </div>
 </div>
 
