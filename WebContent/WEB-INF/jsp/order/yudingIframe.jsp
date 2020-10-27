@@ -19,14 +19,14 @@
 	<div class="layui-form-item">
 		<label class="layui-form-label">姓名：</label>
 	    <div class="layui-input-block">
-	      <input type="text" name="name" lay-verify="title" autocomplete="off" placeholder="请输入客户姓名" class="layui-input">
+	      <input type="text" name="name" required lay-verify="title" autocomplete="off" placeholder="请输入客户姓名" class="layui-input">
     	</div>
 	</div>
 	
 	<div class="layui-form-item">
 		<label class="layui-form-label">身份证号：</label>
 	    <div class="layui-input-block">
-	      <input type="text" name="cardId" lay-verify="identity" placeholder="请输入客户的身份证号" autocomplete="off" class="layui-input">
+	      <input type="text" name="cardId" required lay-verify="identity" placeholder="请输入客户的身份证号" autocomplete="off" class="layui-input">
     	</div>
 	</div>
 	
@@ -37,12 +37,14 @@
     	</div>
 	</div>
 	
-	<div class="layui-form-item">
-		<label class="layui-form-label">性别：</label>
-	    <div class="layui-input-block">
-	      <input type="text" name="sex" lay-verify="title" autocomplete="off" placeholder="请输入性别" class="layui-input">
-    	</div>
-	</div>
+	
+	 <div class="layui-form-item">
+        <label class="layui-form-label">性别</label>
+        <div class="layui-input-block">
+            <input type="radio" name="sex" value="男" title="男" checked>
+            <input type="radio" name="sex" value="女" title="女" >
+        </div>
+    </div>
 	
 	<div class="layui-form-item">
     <div class="layui-input-block">
