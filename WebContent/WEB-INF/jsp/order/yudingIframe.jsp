@@ -55,7 +55,6 @@
   </div>
   
 	<input type="hidden" id="employeeId" name="employeeId" value="${employee.employeeId }" />
-	<!-- <input type="hidden" id="employeeIdInput" name="roomId" /> -->
 	
 </form>
 

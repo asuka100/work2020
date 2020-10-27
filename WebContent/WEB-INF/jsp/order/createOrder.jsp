@@ -39,7 +39,6 @@
 
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="recover">预定</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 
 <script src="${ctxPath}/layui/layui.js?t=1554901098009" charset="utf-8">
