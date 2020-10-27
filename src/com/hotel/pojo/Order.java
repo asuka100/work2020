@@ -20,9 +20,19 @@ public class Order {
 
     private Date date;
     
-    private List<OrderDetail> orderDetail;
+    private OrderDetail orderDetail;
     
+    private Client client;
     
+    private Employee create_employee;
+    
+    private Employee check_employee;
+    
+    private Employee pay_employee;
+    
+    public Order() {
+    	this.date = new Date();
+    }
 
     @Override
 	public int hashCode() {
@@ -113,11 +123,46 @@ public class Order {
         this.date = date;
     }
 
-	public List<OrderDetail> getOrderDetail() {
+	
+	
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
+	public Employee getCreate_employee() {
+		return create_employee;
+	}
+
+	public void setCreate_employee(Employee create_employee) {
+		this.create_employee = create_employee;
+	}
+
+	public Employee getCheck_employee() {
+		return check_employee;
+	}
+
+	public void setCheck_employee(Employee check_employee) {
+		this.check_employee = check_employee;
+	}
+
+	public Employee getPay_employee() {
+		return pay_employee;
+	}
+
+	public void setPay_employee(Employee pay_employee) {
+		this.pay_employee = pay_employee;
+	}
+
+	public OrderDetail getOrderDetail() {
 		return orderDetail;
 	}
 
-	public void setOrderDetail(List<OrderDetail> orderDetail) {
+	public void setOrderDetail(OrderDetail orderDetail) {
 		this.orderDetail = orderDetail;
 	}
 }

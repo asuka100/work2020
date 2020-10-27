@@ -37,6 +37,16 @@ public class OrderController {
 	
 	@Autowired
 	private RoomService roomService;
+	
+	@RequestMapping(value = "/createOrderJsp")
+	public String createOrderJsp() {
+		return "/WEB-INF/jsp/order/createOrder";
+	}
+	
+	@RequestMapping(value = "/yudingIframe")
+	public String createOrdyudingIframeerJsp() {
+		return "/WEB-INF/jsp/order/yudingIframe";
+	}
 
 	/**
 	 * 创建订单
@@ -120,22 +130,22 @@ public class OrderController {
 		//如果是结账，需要把所有房间状态修改为“未清扫”
 		if(result!=0) {
 			Order temp = orderService.selectById(order.getOrderId());
-			List<OrderDetail> detail_list = temp.getOrderDetail();
+			OrderDetail detail_list = temp.getOrderDetail();
 			if("结账".equals(order.getStatus())) {
 				Room room_temp = new Room();
-				for(OrderDetail detail : detail_list) {
-					room_temp.setRoomId(detail.getRoomId());
+				
+					room_temp.setRoomId(detail_list.getRoomId());
 					room_temp.setRoomStatusId(3);
 					roomService.update(room_temp);
-				}
+				
 			}//如果是结账，需要把所有房间状态修改为“入住中”
 			else if("入住".equals(order.getStatus())) {
 				Room room_temp = new Room();
-				for(OrderDetail detail : detail_list) {
-					room_temp.setRoomId(detail.getRoomId());
+				
+					room_temp.setRoomId(detail_list.getRoomId());
 					room_temp.setRoomStatusId(4);
 					roomService.update(room_temp);
-				}
+				
 			}
 		}
 
@@ -160,13 +170,13 @@ public class OrderController {
 			else if("入住".equals(order.getStatus())) {
 				room_status_id = 3;
 			}
-			List<OrderDetail> detail_list = order.getOrderDetail();
+			OrderDetail detail_list = order.getOrderDetail();
 			Room room_temp = new Room();
-			for(OrderDetail detail : detail_list) {
-				room_temp.setRoomId(detail.getRoomId());
+			
+				room_temp.setRoomId(detail_list.getRoomId());
 				room_temp.setRoomStatusId(room_status_id);
 				roomService.update(room_temp);
-			}
+			
 		}
 		
 		

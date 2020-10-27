@@ -94,8 +94,8 @@ public class RoomController {
 	}
 	//根据房间状态id查询房间列表
 	@ResponseBody
-	@RequestMapping(value = "/select/statusId/{statusId}")
-	public Object selectByStatusId(int page, int limit, @PathVariable int statusId) {
+	@RequestMapping(value = "/select/statusId")
+	public Object selectByStatusId(int page, int limit,int statusId) {
 		PageHelper.startPage(page,limit);
 		List<Room> list = service.selectByStatusId(statusId);
 		

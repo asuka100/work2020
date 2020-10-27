@@ -1,5 +1,6 @@
 package com.hotel.controller;
 
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,6 +71,15 @@ public class UserContorller {
 	@RequestMapping(value = "/newfile")
 	public String newfile() {
 		return "WEB-INF/jsp/NewFile";
+	}
+	
+	@RequestMapping(value = "/User/back")
+	public String loginOut(HttpSession session) {
+		Enumeration<String> sessions = session.getAttributeNames();
+		while(sessions.hasMoreElements()) {
+			session.removeAttribute(sessions.nextElement().toString());
+		}
+		return "login";
 	}
 	
 }

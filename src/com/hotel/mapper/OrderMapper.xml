@@ -10,7 +10,12 @@
     <result column="status" property="status" jdbcType="VARCHAR" />
     <result column="total_price" property="totalPrice" jdbcType="DOUBLE" />
     <result column="date" property="date" jdbcType="TIMESTAMP" />
-    <collection column="order_id" property="orderDetail" ofType="com.hotel.pojo.OrderDetail" select="com.hotel.mapper.OrderDetailMapper.selectByOrderId"></collection>
+    <association column="client_id" property="client" select="com.hotel.mapper.ClientMapper.selectByPrimaryKey" ></association>
+    <association column="create_employee_id" property="create_employee" select="com.hotel.mapper.EmployeeMapper.selectByPrimaryKey"></association>
+    <association column="check_employee_id" property="check_employee" select="com.hotel.mapper.EmployeeMapper.selectByPrimaryKey" ></association>
+    <association column="pay_employee_id" property="pay_employee" select="com.hotel.mapper.EmployeeMapper.selectByPrimaryKey" ></association>
+    <association column="order_id" property="orderDetail" select="com.hotel.mapper.OrderDetailMapper.selectByOrderId"></association>
+    
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
