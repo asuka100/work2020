@@ -198,6 +198,6 @@
   	select 
     <include refid="Base_Column_List" />
     from order_detail
-    where order_id = #{order_id,jdbcType=INTEGER}
+    where order_id = #{id,jdbcType=INTEGER}
   </select>
 </mapper>
