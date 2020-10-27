@@ -3,8 +3,11 @@ package com.hotel.controller;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -12,6 +15,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.hotel.pojo.Client;
+import com.hotel.pojo.Employee;
 import com.hotel.pojo.Orders;
 import com.hotel.pojo.OrderDetail;
 import com.hotel.pojo.Room;
@@ -51,6 +55,16 @@ public class OrderController {
 	@RequestMapping(value = "/orderList")
 	public String orderList() {
 		return "/WEB-INF/jsp/order/orderList";
+	}
+	
+	@RequestMapping(value = "/liveIn")
+	public String liveIn() {
+		return "/WEB-INF/jsp/order/liveIn";
+	}
+	
+	@RequestMapping(value = "/payOrder")
+	public String payOrder() {
+		return "/WEB-INF/jsp/order/payOrder";
 	}
 
 	/**
@@ -144,10 +158,25 @@ public class OrderController {
 	//更新订单
 	@RequestMapping(value = "/update/orderId")
 	@ResponseBody
-	public int updateOrderById(Orders order) {
+	public int updateOrderById(String status, Integer orderId, HttpSession session) {
+		
+		System.out.println(status);
+		System.out.println(orderId);
+		Orders order = new Orders();
+		order.setOrderId(orderId);
+		order.setStatus(status);
+		if("入住".equals(order.getStatus())) {
+			order.setCheckEmployeeId(((Employee)session.getAttribute("employee")).getEmployeeId());
+		}
+		if("结账".equals(order.getStatus())) {
+			order.setPayEmployeeId(((Employee)session.getAttribute("employee")).getEmployeeId());
+		}
+		
 		if(order.getOrderId()==null) {
 			return 0;
 		}
+		
+		
 		int result = orderService.updateByOrdersId(order);
 		//如果是结账，需要先房间状态修改为“空闲”
 		if(result!=0) {

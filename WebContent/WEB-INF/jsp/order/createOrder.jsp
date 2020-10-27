@@ -273,10 +273,20 @@
 			      maxmin: true,
 			      shadeClose: true, //点击遮罩关闭层
 			      area : ['800px' , '520px'],
-			      content: '${ctxPath}/order/yudingIframe'
+			      content: '${ctxPath}/order/yudingIframe',
+			      end: function(){
+			    	  layer.msg("预定成功");
+			    	  console.log("end iframe");
+			    	//跳转列表页
+					  setTimeout(reloadPage, 1000);
+			      }
 			    });
 			 
     }    //ENDING {onRecvMsg}
+    
+    function reloadPage() {
+		window.location = '${ctxPath}/order/orderList';
+	}
 </script>
 
 </body>
