@@ -95,6 +95,10 @@
 					url: '${ctxPath}/order/detail/increase',
 					success: function(data){
 						console.log("嵌套ajax success");
+					    //当在iframe页面关闭自身时，在iframe页执行以下js脚本
+					    
+					    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+					    parent.layer.close(index); //再执行关闭
 					}
 				})
 			}
