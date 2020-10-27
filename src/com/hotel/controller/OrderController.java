@@ -15,9 +15,12 @@ import com.hotel.pojo.Client;
 import com.hotel.pojo.Order;
 import com.hotel.pojo.OrderDetail;
 import com.hotel.pojo.Room;
+import com.hotel.pojo.RoomStatus;
 import com.hotel.service.ClientService;
 import com.hotel.service.OrderDetailService;
 import com.hotel.service.OrderService;
+import com.hotel.service.RoomService;
+import com.hotel.service.RoomStatusService;
 
 @Controller
 @RequestMapping(value = "/order")
@@ -31,6 +34,9 @@ public class OrderController {
 	
 	@Autowired
 	private ClientService clientService;
+	
+	@Autowired
+	private RoomService roomService;
 
 	/**
 	 * 创建订单
@@ -187,6 +193,19 @@ public class OrderController {
 			return 0;
 		}
 		
+		Room room = new Room();
+		room.setRoomId(detail.getRoomId());
+		//如果订单为“创建”状态，房间状态修改为“已预订”
+		if(	"创建".equals(order.getStatus())) {
+			room.setRoomStatusId(5);
+			roomService.update(room);
+		}
+		//如果订单为"入住"状态，房间状态修改为“入住中”
+		if("入住".equals(order.getStatus())) {
+			room.setRoomStatusId(4);
+			roomService.update(room);
+		}
+		
 		return orderDetailService.increaseOrderDetail(detail);
 	}
 	
@@ -202,6 +221,13 @@ public class OrderController {
 		if(result==0) {
 			return 0;
 		}
+		
+		Room room = new Room();
+		room.setRoomId(detail.getRoomId());
+		//房间状态修改为“未清扫”
+		room.setRoomStatusId(3);
+		roomService.update(room);
+		
 		
 		return orderDetailService.deleteById(id);
 		

@@ -49,7 +49,7 @@ public class RoomServiceImpl implements RoomService {
 	@Override
 	public int update(Room room) {
 	
-		return mapper.updateByPrimaryKey(room);
+		return mapper.updateByPrimaryKeySelective(room);
 	}
 
 	@Override
