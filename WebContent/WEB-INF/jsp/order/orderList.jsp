@@ -169,7 +169,7 @@
                 ,jump: function(obj, first){
                     if(!first){
                         layer.msg('第'+ obj.curr +'页', {offset: 'b'});
-                        alert( "TTTTTTTTT" );
+                       
                     }
                 }
             });
@@ -266,9 +266,8 @@
     function getInputs(){
         var gInputs = [
             {title:"房间编号", name:"roomId", readonly:"readonly", type:"text"},
-            {title:"设置房间类型", name:"roomTypeId", type:"select",options:type_data},
-           
-            {title:"设置房间描述", name:"descriptions", type:"text"}
+            {title:"房间类型", name:"roomTypeId", type:"select",options:type_data, readonly:"readonly"},
+            {title:"房间描述", name:"descriptions", type:"text",readonly:"readonly"}
         ];
         return gInputs;
     }
@@ -288,7 +287,7 @@
                         getTypeData();
                         getStatusData();
                       
-                    	onRecvMsg(resp);
+                    	onRecvMsg(resp['orderDetail']);
 
                     }else{
                         layer.msg('访问数据错误。');
@@ -304,7 +303,7 @@
         //{ps} 生成表格 HTML
         var input = getInputs();
 
-        var HTML = makeTable( input, json['orderDetail'] );
+        var HTML = makeTable( input, json['room'] );
         //{ps} 弹出一个对话框。
         layer.open({
             type: 1
@@ -313,15 +312,15 @@
             ,area: ['450px','350px']
             ,shade: 0
             ,id: 'LAY_layuipro'   //设定一个 id, 防止重复弹出
-            ,btn: ['保存房间', '关闭对话框']  //{ps} 两个按钮
+            ,btn: ['关闭对话框']  //{ps} 一个按钮
             ,btnAlign: 'c'        //居中对齐
             ,moveType: 1          //拖拽模式, 0 或者 1
             ,content: HTML        //这是上面生成的表格 html 代码
             ,yes: function(){
                 //{1} 当点击 '保存房间' 时候, 调用这个函数
-                udateRoom();       //保存房间(写到数据库)
+            
                 //不建议这里关闭, 等消息回来才做。
-                //layer.closeAll(); //关闭对话框
+               layer.closeAll(); //关闭对话框
             }
             ,success: function( layero ){
                 //-----
@@ -329,67 +328,16 @@
         });
     }    //ENDING {onRecvMsg}
 
-    //{1} 清除页面中的 maketable
-    //{2} 除页面中的 showBox
 
-    //{ps}你要获取的项目
-    var items = [
-        "roomId", "roomTypeId", "roomStatusId", "descriptions"
-    ];
-
-    //{ps} 抓取表单数据
-    function pickData(){
-        var obj = {};
-        for( var i=0; i<items.length; i++ ){
-            var val = $("#"+ items[i]).val();
-            obj[ items[i] ] = val;
-        }
-        return obj;
-    }
-
-    /*
-     *  函数:    saveUser
-     *  提交数据, 通过 ajax 对象。
-     *	提交地址: /User/saveUser
-     */
-    function udateRoom(){
-        //{1}获取表单数据。
-        var _room = pickData();
-        console.log( _room );
-        //{2}使用ajax提交数据
-        $.ajax({
-            url: '${ctxPath}/room/update',
-            data: _room,
-            type: 'post',
-            dataType: 'json',
-            success: function(resp){
-                //
-                console.log(resp);
-               
-                layer.closeAll();
-              
-                if(resp == 1){
-                    layer.msg('更新房间成功');
-                    //跳转列表页
-                    setTimeout(reloadPage,1000);
-
-                }else{
-                	layer.msg('更新房间失败');
-                }
-               
-            }
-
-        });
-    }
 
     function reloadPage(){
-        window.location = '${ctxPath}/room/viewRoomList';
+        window.location = '${ctxPath}/order/orderList';
     }
 
-    function delRoom(_id) {
+    function delOrder(_id) {
         $.ajax({
-            url: '${ctxPath}/room//delete/id',
-            data: {'id':_id},
+            url: '${ctxPath}/order/delete/orderId',
+            data: {'orderId':_id},
             success: function (data) {
                 if(data == 1){
                     layer.closeAll();
