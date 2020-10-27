@@ -75,11 +75,20 @@
 			type:"POST",
 			url: '${ctxPath}/order/create2',
 			data: $('#form-recover').serialize(),
-			success: function(){
+			success: function(data){
+				console.log(data)
 				console.log("recover,success");
 				$.ajax({
-					async : false, 
-					
+					async : false,
+					type: "POST",
+					data:{
+						'orderId':data.orderId,
+						'roomId':roomId
+					},
+					url: '${ctxPath}/order/detail/increase',
+					success: function(data){
+						console.log("嵌套ajax success");
+					}
 				})
 			}
 		})

@@ -133,7 +133,7 @@ public class OrderController {
 			return 0;
 		}
 		int result = orderService.updateByOrdersId(order);
-		//如果是结账，需要把所有房间状态修改为“未清扫”
+		//如果是结账，需要先房间状态修改为“空闲”
 		if(result!=0) {
 			Orders temp = orderService.selectById(order.getOrderId());
 			OrderDetail detail_list = temp.getOrderDetail();
@@ -141,7 +141,7 @@ public class OrderController {
 				Room room_temp = new Room();
 				
 					room_temp.setRoomId(detail_list.getRoomId());
-					room_temp.setRoomStatusId(3);
+					room_temp.setRoomStatusId(1);
 					roomService.update(room_temp);
 				
 			}//如果是结账，需要把所有房间状态修改为“入住中”
@@ -169,20 +169,13 @@ public class OrderController {
 		//如果订单删除成功，所有相关订单的房间状态均要修改
 		if(result!=0) {
 			int room_status_id = 0;
-			//订单为创建状态，房态修改为空闲
-			if("创建".equals(order.getStatus())) {
-				room_status_id = 1;
-			}//订单为入住状态，房态修改为未清扫
-			else if("入住".equals(order.getStatus())) {
-				room_status_id = 3;
-			}
+			room_status_id = 1;
 			OrderDetail detail_list = order.getOrderDetail();
 			Room room_temp = new Room();
 			
 				room_temp.setRoomId(detail_list.getRoomId());
 				room_temp.setRoomStatusId(room_status_id);
 				roomService.update(room_temp);
-			
 		}
 		
 		
@@ -243,8 +236,9 @@ public class OrderController {
 			return 0;
 		}
 		int orderId = detail.getOrderId();
-		
-		double price = detail.getRoom().getRoomType().getPrice();
+		int roomId = detail.getRoomId();
+		Room temp = roomService.selectById(roomId);
+		double price = temp.getRoomType().getPrice();
 		detail.setPrice(price);
 		
 		//order正常修改之后再插入order_detail表
